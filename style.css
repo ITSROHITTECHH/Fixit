@@ -259,7 +259,8 @@ body.signup-bg .form-container button:hover {
   background: #e64a19;
 }
 
-/* Already have an account link */
+/* /* Already have an account link  */
+
 body.signup-bg .form-container p a {
   color: #ffd180;
   text-decoration: none;
