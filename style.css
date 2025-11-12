@@ -273,3 +273,51 @@ body.signup-bg .form-container p a:hover {
 
 
 
+.team-member {
+  position: relative;
+  width: 300px;
+  height: 380px;
+  margin: 20px auto;
+  background-image: url('assets/devpicrohit.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.team-member .overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;                /* ✅ attach to left */
+  right: 0;               /* ✅ attach to right */
+  width: 100%;            /* ✅ full width overlay */
+  background: rgba(0,0,0,0.7); 
+  color: #fff;
+  padding: 20px;
+  text-align: center;     /* ✅ center align text */
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /* center horizontally */
+  justify-content: center;/* center vertically */
+}
+
+
+
+
+
+
+
+body {
+    background: url("assets/aboutusbg.png") no-repeat center center fixed;
+    background-size: cover;
+}
+
+
+
+
+
+
+
+
+
