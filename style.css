@@ -614,3 +614,98 @@ body {
   color: #fff;
   transform: scale(1.08);
 }
+
+
+
+
+
+
+
+
+.services {
+  position: relative;
+  padding: 80px 50px;
+  text-align: center;
+  z-index: 0;
+}
+
+.services::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* dark overlay */
+  z-index: 0;
+}
+
+.services h3,
+.service-cards {
+  position: relative;
+  z-index: 1; /* ensures text & cards appear above overlay */
+}
+
+
+
+.services h3 {
+  font-size: 2.5rem; /* increased from 2rem */
+  color: #fff;       /* changed from #222 to white */
+}
+
+
+
+
+
+
+.service-detail {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+
+.service-detail .overlay {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 50px;
+  border-radius: 12px;
+  max-width: 700px;
+}
+
+.service-detail h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.service-detail p {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+.service-detail .btn {
+  padding: 12px 25px;
+  background: #ff5722;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.service-detail .btn:hover {
+  background: #e64a19;
+}
+
+
+
+
+
+.service-card .price {
+  display: block;
+  margin: 10px 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ffd700;
+}
