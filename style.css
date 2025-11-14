@@ -321,3 +321,296 @@ body {
 
 
 
+
+
+/* ---------------- HOME PAGE NEW SECTIONS ---------------- */
+
+/* Features Section */
+.features {
+  background: #222;
+  padding: 80px 50px;
+  text-align: center;
+}
+
+.features h3 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.features p {
+  max-width: 700px;
+  margin: auto;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+/* Testimonials Section */
+.testimonials {
+  background: #333;
+  padding: 80px 50px;
+  text-align: center;
+}
+
+.testimonials h3 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.testimonials p {
+  max-width: 700px;
+  margin: 10px auto;
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+/* Call to Action Section */
+.cta {
+  background: #444;
+  padding: 80px 50px;
+  text-align: center;
+}
+
+.cta h3 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+.cta .btn {
+  font-size: 1rem;
+  padding: 12px 25px;
+}
+
+
+
+
+
+/* ---------------- SERVICES CARDS FULL BACKGROUND ---------------- */
+.services {
+  padding: 80px 50px;
+  text-align: center;
+}
+
+.services h3 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #222;
+}
+
+.service-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.service-card {
+  position: relative;
+  height: 300px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-decoration: none; /* remove underline for link */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.service-card .overlay {
+  width: 100%;
+  padding: 20px;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  text-align: center;
+}
+
+.service-card h4 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.service-card p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Background images for each service */
+.plumbing { background-image: url("assets/plumbing.png"); }
+.electrical { background-image: url("assets/electrical.png"); }
+.cleaning { background-image: url("assets/cleaning.png"); }
+.painting { background-image: url("assets/painting.png"); }
+.carpentry { background-image: url("assets/carpentry.png"); }
+.wellness { background-image: url("assets/wellness.png"); }
+.pest { background-image: url("assets/pestcantrol.png"); }
+.renovation { background-image: url("assets/renovation.png"); }
+
+
+
+
+
+
+.services {
+  padding: 80px 50px;
+  text-align: center;
+}
+
+.services h3 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #222;
+}
+
+.service-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.service-card {
+  position: relative;
+  height: 300px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.service-card .overlay {
+  width: 100%;
+  padding: 20px;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  text-align: center;
+}
+
+.service-card h4 { font-size: 1.5rem; margin-bottom: 5px; }
+.service-card p { font-size: 0.95rem; line-height: 1.4; }
+
+/* Individual card backgrounds */
+.plumbing { background-image: url("assets/plumbing.png"); }
+.electrical { background-image: url("assets/electrical.png"); }
+.cleaning { background-image: url("assets/cleaning.png"); }
+.painting { background-image: url("assets/painting.png"); }
+.carpentry { background-image: url("assets/carpentry.png"); }
+.wellness { background-image: url("assets/wellness.png"); }
+.pest { background-image: url("assets/pestcantrol.png"); }
+.renovation { background-image: url("assets/renovation.png"); }
+
+
+
+
+.cta {
+  padding: 60px 50px;
+  text-align: center;
+  background: #ff5722;
+  color: #fff;
+}
+
+.cta .btn { 
+  padding: 12px 24px;
+  background: #e64a19;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.cta .btn:hover {
+  background: #e64a19;
+  color: #222;
+}
+
+
+
+
+
+
+/* CTA Section Enhancement */
+.cta {
+  padding: 80px 50px;
+  text-align: center;
+  background: linear-gradient(135deg, #ff5722, #ff914d);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Floating glowing circles */
+.cta::before,
+.cta::after {
+  content: "";
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  animation: float 6s infinite ease-in-out;
+}
+
+.cta::before {
+  top: -80px;
+  left: -80px;
+}
+
+.cta::after {
+  bottom: -80px;
+  right: -80px;
+  animation-delay: 2s;
+}
+
+/* Smooth Floating Animation */
+@keyframes float {
+  0% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.2) translateY(-20px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+/* Text Entrance Animation */
+.cta-title, .cta-sub {
+  animation: fadeUp 1s ease forwards;
+  opacity: 0;
+}
+.cta-title { animation-delay: 0.3s; }
+.cta-sub { animation-delay: 0.6s; }
+
+@keyframes fadeUp {
+  0% { transform: translateY(30px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Button Animation */
+.cta-animate {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 14px 30px;
+  background: #fff;
+  color: #ff5722;
+  font-weight: bold;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.35s;
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 0.9s;
+  opacity: 0;
+}
+
+.cta-animate:hover {
+  background: #222;
+  color: #fff;
+  transform: scale(1.08);
+}
