@@ -513,6 +513,37 @@ body {
 
 
 
+
+
+/* Testimonials Section Background */
+.testimonials {
+  background: url("assets/testimonials-bg.jpg") no-repeat center center / cover;
+  padding: 80px 50px;
+  color: #fff;
+  text-align: center;
+  position: relative;
+}
+
+.testimonials::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5); /* optional dark overlay for readability */
+  z-index: 0;
+}
+
+.testimonials * {
+  position: relative;
+  z-index: 1;
+}
+
+
+
+
+
+
+
 .cta {
   padding: 60px 50px;
   text-align: center;
@@ -535,85 +566,6 @@ body {
   color: #222;
 }
 
-
-
-
-
-
-/* CTA Section Enhancement */
-.cta {
-  padding: 80px 50px;
-  text-align: center;
-  background: linear-gradient(135deg, #ff5722, #ff914d);
-  color: #fff;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Floating glowing circles */
-.cta::before,
-.cta::after {
-  content: "";
-  position: absolute;
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  animation: float 6s infinite ease-in-out;
-}
-
-.cta::before {
-  top: -80px;
-  left: -80px;
-}
-
-.cta::after {
-  bottom: -80px;
-  right: -80px;
-  animation-delay: 2s;
-}
-
-/* Smooth Floating Animation */
-@keyframes float {
-  0% { transform: scale(1) translateY(0); }
-  50% { transform: scale(1.2) translateY(-20px); }
-  100% { transform: scale(1) translateY(0); }
-}
-
-/* Text Entrance Animation */
-.cta-title, .cta-sub {
-  animation: fadeUp 1s ease forwards;
-  opacity: 0;
-}
-.cta-title { animation-delay: 0.3s; }
-.cta-sub { animation-delay: 0.6s; }
-
-@keyframes fadeUp {
-  0% { transform: translateY(30px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-
-/* Button Animation */
-.cta-animate {
-  display: inline-block;
-  margin-top: 25px;
-  padding: 14px 30px;
-  background: #fff;
-  color: #ff5722;
-  font-weight: bold;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: 0.35s;
-  animation: fadeUp 1s ease forwards;
-  animation-delay: 0.9s;
-  opacity: 0;
-}
-
-.cta-animate:hover {
-  background: #222;
-  color: #fff;
-  transform: scale(1.08);
-}
 
 
 
@@ -711,6 +663,94 @@ body {
 }
 
 
+
+/* Dark Theme Pricing Section */
+.pricing {
+  text-align: center;
+  padding: 60px 20px;
+  background: #111; /* same dark background */
+  color: #fff;
+}
+
+.pricing h3 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #fff; /* keep heading white */
+}
+
+.pricing-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.price-card {
+  background: #222;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  width: 240px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.price-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+}
+
+.price-card h4 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #ff5722; /* orange accent */
+}
+
+.price-card p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.price-card .btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #ff5722;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.price-card .btn:hover {
+  background: #e64a19;
+}
+
+
+
+
+
+
+
+.price-card {
+  background: #222;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  width: 240px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  text-decoration: none; /* remove underline */
+  color: #fff;
+  display: block; /* makes the whole card clickable */
+}
+
+.price-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+}
 
 
 
@@ -1182,11 +1222,6 @@ body {
 
 
 
-
-
-
-
-
 /* ========================================
    ENHANCED FOOTER STYLES
    Add this CSS to your existing style.css file
@@ -1506,3 +1541,98 @@ body {
 
 
 
+
+
+
+
+
+
+.pricing {
+  background-color: #111;  /* black background */
+  padding: 60px 20px;      /* optional spacing around cards */
+  text-align: center;      /* center heading and cards */
+}
+
+
+
+
+
+
+
+
+
+
+/* CTA Section Enhancement */
+.cta {
+  padding: 80px 50px;
+  text-align: center;
+  background: linear-gradient(135deg, #ff5722, #ff914d);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Floating glowing circles */
+.cta::before,
+.cta::after {
+  content: "";
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  animation: float 6s infinite ease-in-out;
+}
+
+.cta::before {
+  top: -80px;
+  left: -80px;
+}
+
+.cta::after {
+  bottom: -80px;
+  right: -80px;
+  animation-delay: 2s;
+}
+
+/* Smooth Floating Animation */
+@keyframes float {
+  0% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.2) translateY(-20px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+/* Text Entrance Animation */
+.cta-title, .cta-sub {
+  animation: fadeUp 1s ease forwards;
+  opacity: 0;
+}
+.cta-title { animation-delay: 0.3s; }
+.cta-sub { animation-delay: 0.6s; }
+
+@keyframes fadeUp {
+  0% { transform: translateY(30px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Button Animation */
+.cta-animate {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 14px 30px;
+  background: #fff;
+  color: #ff5722;
+  font-weight: bold;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.35s;
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 0.9s;
+  opacity: 0;
+}
+
+.cta-animate:hover {
+  background: #222;
+  color: #fff;
+  transform: scale(1.08);
+}
