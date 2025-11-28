@@ -5,6 +5,309 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fixit - Home</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Enhanced Testimonials Section - Orange Theme */
+    .testimonials {
+      background: linear-gradient(135deg, #ff5722 0%, #e64a19 100%);
+      padding: 80px 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .testimonials h3 {
+      font-size: 2.5rem;
+      margin-bottom: 50px;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .testimonial-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .testimonial-card {
+      background:rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+      background: rgba(223, 93, 18, 0.842);
+    }
+
+    .testimonial-stars {
+      color: #fff3cd;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+
+    .testimonial-text {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      font-weight: 600;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    /* Enhanced CTA Section - Orange Theme */
+    .cta {
+      background: linear-gradient(135deg, #111 0%, #111 100%);
+      padding: 100px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.3), transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(247, 147, 30, 0.3), transparent 50%);
+      z-index: 1;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta h3 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: white;
+      font-weight: 800;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .cta p {
+      font-size: 1.3rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+    .cta .btn {
+      display: inline-block;
+      padding: 18px 50px;
+      background: linear-gradient(135deg, #ff5722 0%, #e64a19 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .cta .btn:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(255, 107, 53, 0.6);
+      background: linear-gradient(135deg, #ff5722 0%, #e64a19 100%);
+    }
+
+    /* Enhanced Footer */
+    .footer-enhanced {
+      background: linear-gradient(135deg, #111 0%, #111 100%);
+      color: white;
+      padding: 0;
+      margin-top: 0;
+      clear: both;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px 0;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      padding-bottom: 40px;
+    }
+
+    .footer-column h2,
+    .footer-column h3 {
+      color: #ff5722;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .footer-column h2 {
+      font-size: 2rem;
+    }
+
+    .footer-column h3 {
+      font-size: 1.2rem;
+    }
+
+    .footer-tagline {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+      margin-top: -10px;
+      margin-bottom: 15px;
+    }
+
+    .footer-description {
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 107, 53, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e64a19;
+      transition: all 0.3s ease;
+    }
+
+    .social-icon:hover {
+      background: #ff5722;
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .footer-links,
+    .footer-contact {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .footer-links a:hover {
+      color: #ff5722;
+    }
+
+    .footer-contact li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 15px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.95rem;
+    }
+
+    .footer-contact svg {
+      color: #ff5722;
+      flex-shrink: 0;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 25px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-bottom p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .footer-bottom-links a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-bottom-links a:hover {
+      color: #ff5722;
+    }
+
+    .footer-bottom-links .separator {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      .testimonials h3 {
+        font-size: 2rem;
+      }
+
+      .testimonial-container {
+        grid-template-columns: 1fr;
+      }
+
+      .cta h3 {
+        font-size: 2rem;
+      }
+
+      .cta p {
+        font-size: 1.1rem;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-bottom-links {
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 <body class="abstract-bg">
 
@@ -13,13 +316,14 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="services/service.html">Services</a>
-      <a href="about.html">About Us</a>   <!-- Added About Us link  -->
-      <a href="login.html">Login</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
       <a href="signup.html">Signup</a>
     </nav>
   </header>
 
   <main>
+    <!-- Original Hero Section -->
     <section class="hero">
       <div class="hero-content">
         <h2>Welcome to Fixit</h2>
@@ -27,9 +331,214 @@
         <a href="signup.html" class="btn">Get Started</a>
       </div>
     </section>
+
+  <!-- Services Section -->
+<section id="services" class="services">
+  <h3>Services</h3>
+  
+
+    <div class="service-cards">
+    <a href="services/plumbing.html" class="service-card plumbing">
+      <div class="overlay">
+        <h4>Plumbing</h4>
+        <p>Fix leaks, pipes, and plumbing emergencies quickly and professionally.</p>
+      </div>
+    </a>
+
+    <a href="services/electrical.html" class="service-card electrical">
+      <div class="overlay">
+        <h4>Electrical</h4>
+        <p>Certified electricians for wiring, repairs, and installations.</p>
+      </div>
+    </a>
+
+    <a href="services/cleaning.html" class="service-card cleaning">
+      <div class="overlay">
+        <h4>Cleaning</h4>
+        <p>Professional home and office cleaning services for sparkling results.</p>
+      </div>
+    </a>
+
+    <a href="services/painting.html" class="service-card painting">
+      <div class="overlay">
+        <h4>Painting</h4>
+        <p>Skilled painters to refresh your home or office walls efficiently.</p>
+      </div>
+    </a>
+
+    <a href="services/carpentry.html" class="service-card carpentry">
+      <div class="overlay">
+        <h4>Carpentry</h4>
+        <p>Furniture repair, door/window fixes, and woodwork.</p>
+      </div>
+    </a>
+
+    <a href="services/wellness.html" class="service-card wellness">
+      <div class="overlay">
+        <h4>Wellness</h4>
+        <p>Rejuvenating at-home wellness and body therapy by trained professionals.</p>
+      </div>
+    </a>
+
+    <a href="services/pestcontrol.html" class="service-card pest">
+      <div class="overlay">
+        <h4>Pest Control</h4>
+        <p>Safe & effective treatment for insects and rodents.</p>
+      </div>
+    </a>
+
+    <a href="services/renovation.html" class="service-card renovation">
+      <div class="overlay">
+        <h4>Home Renovation</h4>
+        <p>Remodeling, flooring, tiling & complete makeovers.</p>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+
+    <!-- Enhanced Testimonials Section -->
+    <section class="testimonials">
+      <h3>Customer Feedback</h3>
+      <div class="testimonial-container">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Fixit helped me find a plumber instantly! The service was fast and reliable. Highly professional work done within hours."</p>
+          <p class="testimonial-author">– Ramesh K.</p>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Easy to post jobs and get them done. The electrician was skilled and completed everything perfectly. Highly recommend!"</p>
+          <p class="testimonial-author">– Priya S.</p>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Amazing cleaning service! My home has never looked better. The team was punctual and thorough. Will definitely use again."</p>
+          <p class="testimonial-author">– Anjali M.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enhanced Call to Action Section -->
+    <section class="cta">
+      <div class="cta-content">
+        <h3>Ready to Get Started?</h3>
+        <p>Join thousands of satisfied customers. Connect with trusted professionals for all your home service needs today!</p>
+        <a href="signup.html" class="btn">Sign Up Now</a>
+      </div>
+    </section>
+
   </main>
 
-  <footer>
-    <p>© 2025 Fixit. All rights reserved.</p>
+  <!-- Enhanced Footer -->
+  <footer class="footer-enhanced">
+    <div class="footer-container">
+      
+      <!-- Footer Top Section -->
+      <div class="footer-top">
+        
+        <div class="footer-column">
+          <div class="footer-logo">
+            <h2>Fixit</h2>
+            <p class="footer-tagline">Your trusted service partner</p>
+          </div>
+          <p class="footer-description">Professional home services available 24/7. Fast, reliable, and quality solutions for all your service needs.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon" aria-label="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            <a href="#" class="social-icon" aria-label="Twitter">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+              </svg>
+            </a>
+            <a href="#" class="social-icon" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+              </svg>
+            </a>
+            <a href="#" class="social-icon" aria-label="LinkedIn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services/service.html">Services</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="signup.html">Book Now</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Our Services</h3>
+          <ul class="footer-links">
+            <li><a href="services/plumbing.html">Plumbing</a></li>
+            <li><a href="services/electrical.html">Electrical</a></li>
+            <li><a href="services/cleaning.html">Cleaning</a></li>
+            <li><a href="services/painting.html">Painting</a></li>
+            <li><a href="#services">etc</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Contact Info</h3>
+          <ul class="footer-contact">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span>Delhi, India</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+              <span>+91 1800-FIXIT-NOW</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <span>support@fixit.com</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>24/7 Available</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Footer Bottom Section -->
+      <div class="footer-bottom">
+        <p>© 2025 Fixit. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <span class="separator">|</span>
+          <a href="#">Terms of Service</a>
+          <span class="separator">|</span>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+
+    </div>
   </footer>
 </body>
