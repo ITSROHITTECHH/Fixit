@@ -4,6 +4,10 @@ Fixit is a modern home repair and maintenance service website that makes it easy
 
 ---
 
+The homepage features interactive UI sections including a hero banner, feature highlights, testimonials, and a modern CTA section. The design uses gradients, glass-effect cards, animations, and responsive layouts to provide a premium user experience.
+
+---
+
 # ⭐ Features
 
 Modern & Responsive UI – Fully optimized for all screen sizes with clean layout and smooth flow.
