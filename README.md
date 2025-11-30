@@ -32,6 +32,20 @@ Beginner-Friendly Project – Great for learning and showcasing frontend develop
 
 ---
 
+# 📞 Contact
+
+If you like this project and want to share feedback, ask questions, or suggest improvements, I’d love to hear from you.
+
+I’d love to hear from you! Feel free to reach out anytime:
+
+📧 Email: srivastavarohitkumar067@gmail.com
+
+🔗 LinkedIn: https://www.linkedin.com/in/rohit-kumar-srivastava-39a74b372?utm_source=share_via&utm_content=profile&utm_medium=member_android
+
+🐦 Twitter: https://x.com/itsrohit_tech?t=8Pzh0VeKL4d_ZVCQQuyODQ&s=09
+
+---
+
 # 🎨 Media Attribution
 
 This project uses AI-generated visuals. All images and graphics were created using Gemini AI, specifically for Fixit. No third‑party downloaded assets are used.
