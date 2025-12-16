@@ -16,3 +16,36 @@ fetch("http://127.0.0.1:8000/api/test/")
   .catch(error => {
     console.error("Error connecting backend:", error);
   });
+
+
+
+
+
+
+  const signupForm = document.getElementById("signupForm");
+
+if (signupForm) {
+  signupForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(signupForm);
+
+    fetch("http://127.0.0.1:8000/api/signup/", {
+      method: "POST",
+      body: formData,
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.message) {
+          alert("Signup successful 🎉");
+          window.location.href = "login.html";
+        } else {
+          alert(data.error);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Something went wrong");
+      });
+  });
+}
