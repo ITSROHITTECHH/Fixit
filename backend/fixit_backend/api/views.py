@@ -36,3 +36,33 @@ def signup(request):
     )
 
     return Response({"message": "Signup successful"})
+
+
+
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import json
+
+@csrf_exempt
+def login_user(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+
+        email = data.get("email")
+        password = data.get("password")
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return JsonResponse({"message": "Invalid credentials"}, status=401)
+
+        user = authenticate(username=user.username, password=password)
+
+        if user is not None:
+            return JsonResponse({"message": "Login successful"}, status=200)
+        else:
+            return JsonResponse({"message": "Invalid credentials"}, status=401)
+
+    return JsonResponse({"message": "Invalid request"}, status=405)
