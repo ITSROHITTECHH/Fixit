@@ -5,6 +5,14 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+
+
+def contact_page(request):
+    return render(request, 'contact.html')
+
+
+
+
 @api_view(['GET'])
 def test_api(request):
     return Response({
@@ -40,29 +48,47 @@ def signup(request):
 
 
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
-import json
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
-@csrf_exempt
-def login_user(request):
-    if request.method == "POST":
-        data = json.loads(request.body)
+@api_view(['POST'])
+def login_api(request):
+    email = request.data.get('email')
+    password = request.data.get('password')
 
-        email = data.get("email")
-        password = data.get("password")
+    if not email or not password:
+        return Response({"error": "Email and password required"}, status=400)
 
-        try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
-            return JsonResponse({"message": "Invalid credentials"}, status=401)
+    user = authenticate(request, username=email, password=password)
 
-        user = authenticate(username=user.username, password=password)
+    if user is not None:
+        return Response({"success": "Login successful"})
+    else:
+        return Response({"error": "Invalid credentials"}, status=401)
 
-        if user is not None:
-            return JsonResponse({"message": "Login successful"}, status=200)
-        else:
-            return JsonResponse({"message": "Invalid credentials"}, status=401)
 
-    return JsonResponse({"message": "Invalid request"}, status=405)
+
+
+from .models import Contact
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+@api_view(['POST'])
+def contact_api(request):
+    name = request.data.get('name')
+    email = request.data.get('email')
+    subject = request.data.get('subject')
+    message = request.data.get('message')
+
+    if not all([name, email, subject, message]):
+        return Response({"error": "All fields required"}, status=400)
+
+    Contact.objects.create(
+        name=name,
+        email=email,
+        subject=subject,
+        message=message
+    )
+
+    return Response({"success": "Message sent successfully"})
+
