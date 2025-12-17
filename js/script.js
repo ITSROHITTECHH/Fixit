@@ -1,4 +1,6 @@
 console.log("Fixit frontend loaded");
+console.log("Contact JS loaded");
+
 
 fetch("http://127.0.0.1:8000/api/test/")
   .then(response => response.json())
@@ -77,3 +79,55 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
     console.error(err);
   });
 });
+
+
+
+
+const contactForm = document.getElementById("contactForm");
+
+if (contactForm) {
+  console.log("Contact form found");
+
+  contactForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const data = {
+      name: contactForm.name.value,
+      email: contactForm.email.value,
+      subject: contactForm.subject.value,
+      message: contactForm.message.value,
+    };
+
+    console.log("Sending data:", data);
+
+    let msgBox = document.querySelector(".form-message");
+    if (!msgBox) {
+      msgBox = document.createElement("div");
+      msgBox.className = "form-message";
+      contactForm.appendChild(msgBox);
+    }
+
+    try {
+      const res = await fetch("http://127.0.0.1:8000/api/contact/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+      console.log("Backend response:", result);
+
+      msgBox.innerText = result.message || "Message sent successfully ✅";
+      msgBox.style.color = "lightgreen";
+
+      contactForm.reset();
+    } catch (err) {
+      console.error(err);
+      msgBox.innerText = "Server error. Try again later ❌";
+      msgBox.style.color = "red";
+    }
+  });
+}
+
