@@ -46,7 +46,7 @@ def signup(request):
     return Response({"message": "Signup successful"})
 
 
-
+  
 from django.contrib.auth import authenticate
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -92,3 +92,31 @@ def contact_api(request):
 
     return Response({"success": "Message sent successfully"})
 
+
+
+
+
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import Booking
+
+@api_view(['POST'])
+def create_booking(request):
+    data = request.data
+
+    booking = Booking.objects.create(
+        service=data.get('service'),
+        name=data.get('name'),
+        email=data.get('email'),
+        phone=data.get('phone'),
+        address=data.get('address'),
+        date=data.get('date'),
+        time=data.get('time'),
+        description=data.get('description', '')
+    )
+
+    return Response({
+        "success": "Booking created successfully",
+        "booking_id": booking.id
+    })
