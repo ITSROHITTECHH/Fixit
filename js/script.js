@@ -2,6 +2,8 @@ console.log("Fixit frontend loaded");
 console.log("Contact JS loaded");
 
 
+
+
 fetch("http://127.0.0.1:8000/api/test/")
   .then(response => response.json())
   .then(data => {
@@ -130,4 +132,8 @@ if (contactForm) {
     }
   });
 }
+
+
+
+
 

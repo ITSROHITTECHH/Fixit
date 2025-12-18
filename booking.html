@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fixit - Book Service</title>
+
+  <!-- Embedded CSS -->
+  <style>
+    /* Reset some default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #1a1a1a; /* Dark Background */
+      color: #f8f9fa; /* Light text for contrast */
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #e64a19; /* Dark Orange */
+    }
+
+    header .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    header nav a {
+      color: #f8f9fa;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    header nav a:hover {
+      color: #ff5722; /* Primary Orange */
+    }
+
+    .booking-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem 2rem;
+    }
+
+    .booking-container {
+      background-color: #2a2a2a; /* Slightly lighter dark background */
+      padding: 2.5rem;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .booking-container h2 {
+      text-align: center;
+      color: #ff5722; /* Primary Orange */
+      margin-bottom: 1rem;
+    }
+
+    .booking-container .service-name {
+      text-align: center;
+      color: #f8f9fa;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    .booking-form input,
+    .booking-form textarea,
+    .booking-form select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #f8f9fa; /* Light Gray */
+      color: #1a1a1a; /* Dark text */
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .booking-form input:focus,
+    .booking-form textarea:focus {
+      outline: 2px solid #ff5722; /* Primary Orange */
+    }
+
+    .booking-form .date-time {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .booking-form .date-time input {
+      flex: 1;
+    }
+
+    .booking-form button.btn {
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #ff5722; /* Primary Orange */
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .booking-form button.btn:hover {
+      background-color: #e64a19; /* Dark Orange */
+    }
+
+    .booking-msg {
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+
+    footer.footer-enhanced {
+      background-color: #1a1a1a; /* Dark Background */
+      padding: 1.5rem 2rem;
+      text-align: center;
+      color: #f8f9fa;
+      border-top: 1px solid #333;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+
+</head>
+<body class="abstract-bg">
+
+  <!-- Header -->
+
+  <header>
+    <h1 class="logo">Fixit</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="services/service.html">Services</a>
+      <a href="contact.html">Contact</a>
+      <a href="signup.html">Signup</a>
+    </nav>
+  </header>
+
+  <!-- Booking Section -->
+
+  <main>
+    <section class="booking-section">
+      <div class="booking-container">
+        <h2>Book Your Service</h2>
+        <p id="selected-service" class="service-name"></p>
+
+        <form id="booking-form" class="booking-form">
+          <input type="hidden" id="service" name="service" />
+
+          <input type="text" name="name" placeholder="Your Name" required />
+          <input type="email" name="email" placeholder="Your Email" required />
+          <input type="tel" name="phone" placeholder="Phone Number" required />
+
+          <textarea name="address" placeholder="Service Address" rows="3" required></textarea>
+
+          <div class="date-time">
+            <input type="date" name="date" required />
+            <input type="time" name="time" required />
+          </div>
+
+          <textarea name="description" placeholder="Describe your issue (optional)" rows="4"></textarea>
+
+          <button type="submit" class="btn">Confirm Booking</button>
+        </form>
+
+
+<p id="booking-msg" class="booking-msg"></p>
+
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+
+  <footer class="footer-enhanced">
+    <div class="footer-bottom">
+      <p>© 2025 Fixit. All rights reserved.</p>
+    </div>
+  </footer>
+
+ 
+<script src="js/booking.js"></script>
+
+
+
+
+</body>
+</html>
