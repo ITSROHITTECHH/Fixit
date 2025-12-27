@@ -44,3 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+
+
+const params = new URLSearchParams(window.location.search);
+const service = params.get("service");
+
+if (service) {
+  document.getElementById("service").value = service;
+  document.getElementById("selected-service").innerText =
+    "Service: " + service.replace("-", " ").toUpperCase();
+}
