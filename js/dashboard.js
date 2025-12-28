@@ -1,53 +1,70 @@
-// Service Icons Mapping
+console.log("dashboard js loaded")
+
+// ================= SERVICE ICONS =================
 const serviceIcons = {
-  'Plumbing': '🔧',
-  'Electrical': '⚡',
-  'Carpentry': '🪚',
-  'Painting': '🎨',
-  'AC Repair': '❄️',
-  'Cleaning': '✨',
-  'Pest Control': '🐛',
-  'Appliance Repair': '🔌',
-  'Default': '🔨'
+  Plumbing: "🔧",
+  Electrical: "⚡",
+  Carpentry: "🪚",
+  Painting: "🎨",
+  "AC Repair": "❄️",
+  Cleaning: "✨",
+  "Pest Control": "🐛",
+  "Appliance Repair": "🔌",
+  Default: "🔨",
 };
 
-// Global variables
+// ================= GLOBAL STATE =================
 let allBookings = [];
-let currentFilter = 'all';
+let currentFilter = "all";
 
-// Initialize Dashboard
-document.addEventListener("DOMContentLoaded", async () => {
-  const bookingList = document.getElementById("booking-list");
-  
-  // Show loading state
-  showLoading(bookingList);
-  
-  try {
-    // Fetch bookings from API
-    const response = await fetch("http://127.0.0.1:8000/api/my-bookings/");
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    allBookings = await response.json();
-    
-    // Update statistics
-    updateStats();
-    
-    // Render bookings
-    renderBookings();
-    
-    // Setup tab filtering
-    setupTabs();
-    
-  } catch (error) {
-    console.error("Error loading bookings:", error);
-    showError(bookingList);
-  }
+// ================= INIT =================
+document.addEventListener("DOMContentLoaded", () => {
+  loadDashboard();
 });
 
-// Show loading spinner
+async function loadDashboard() {
+  const container = document.getElementById("booking-list");
+  showLoading(container);
+
+  try {
+    const token = localStorage.getItem("token"); // 🔑 JWT TOKEN
+
+    const response = await fetch(
+      "http://127.0.0.1:8000/api/my-bookings/",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+        credentials: "include", // ✅ Django session support
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    // ✅ Handle BOTH response formats
+    allBookings = Array.isArray(data) ? data : data.bookings || [];
+
+    // Optional user name
+    if (data.user?.name) {
+      document.getElementById("user-name").textContent = data.user.name;
+    }
+
+    updateStats();
+    setupTabs();
+    renderBookings();
+  } catch (err) {
+    console.error("Dashboard Load Error:", err);
+    showError(container);
+  }
+}
+
+// ================= UI HELPERS =================
 function showLoading(container) {
   container.innerHTML = `
     <div class="loading">
@@ -57,219 +74,120 @@ function showLoading(container) {
   `;
 }
 
-// Show error message
 function showError(container) {
   container.innerHTML = `
     <div class="empty-state">
       <div class="empty-icon">⚠️</div>
-      <h3>Unable to load bookings</h3>
-      <p>Please check your connection and try again</p>
+      <h3>Unable to load dashboard</h3>
+      <p>Please login again or check server</p>
       <button class="cta-btn" onclick="location.reload()">Retry</button>
     </div>
   `;
 }
 
-// Update Statistics
+// ================= STATS =================
 function updateStats() {
-  const totalBookings = allBookings.length;
-  const pendingCount = allBookings.filter(b => 
-    b.status && b.status.toLowerCase() === 'pending'
-  ).length;
-  const completedCount = allBookings.filter(b => 
-    b.status && b.status.toLowerCase() === 'completed'
-  ).length;
-  const confirmedCount = allBookings.filter(b => 
-    b.status && b.status.toLowerCase() === 'confirmed'
-  ).length;
-  
-  // Update stat cards
-  const totalEl = document.getElementById('total-bookings');
-  const pendingEl = document.getElementById('pending-count');
-  const completedEl = document.getElementById('completed-count');
-  const activeEl = document.getElementById('active-count');
-  
-  if (totalEl) totalEl.textContent = totalBookings;
-  if (pendingEl) pendingEl.textContent = pendingCount;
-  if (completedEl) completedEl.textContent = completedCount;
-  if (activeEl) activeEl.textContent = confirmedCount;
+  const total = allBookings.length;
+  const pending = allBookings.filter(b => b.status === "pending").length;
+  const completed = allBookings.filter(b => b.status === "completed").length;
+  const confirmed = allBookings.filter(b => b.status === "confirmed").length;
+
+  document.getElementById("total-bookings").textContent = total;
+  document.getElementById("pending-count").textContent = pending;
+  document.getElementById("completed-count").textContent = completed;
+  document.getElementById("active-count").textContent = confirmed;
 }
 
-// Render Bookings
+// ================= RENDER BOOKINGS =================
 function renderBookings() {
-  const container = document.getElementById('booking-list');
-  
-  if (!container) return;
-  
-  // Filter bookings based on current filter
-  const filtered = currentFilter === 'all' 
-    ? allBookings 
-    : allBookings.filter(b => 
-        b.status && b.status.toLowerCase() === currentFilter.toLowerCase()
-      );
-  
-  // Show empty state if no bookings
-  if (filtered.length === 0) {
+  const container = document.getElementById("booking-list");
+
+  const list =
+    currentFilter === "all"
+      ? allBookings
+      : allBookings.filter(b => b.status === currentFilter);
+
+  if (!list.length) {
     container.innerHTML = `
       <div class="empty-state">
         <div class="empty-icon">📭</div>
         <h3>No bookings found</h3>
-        <p>You don't have any ${currentFilter === 'all' ? '' : currentFilter} bookings yet</p>
-        <a href="booking.html" class="cta-btn">Book a Service</a>
+        <a href="booking.html" class="cta-btn">Book Service</a>
       </div>
     `;
     return;
   }
-  
-  // Render booking cards
-  container.innerHTML = filtered.map(booking => createBookingCard(booking)).join('');
+
+  container.innerHTML = list.map(createBookingCard).join("");
 }
 
-// Create Booking Card HTML
-function createBookingCard(booking) {
-  const service = booking.service || 'Service';
-  const bookingId = booking.id || 'N/A';
-  const date = booking.date || 'Not scheduled';
-  const time = booking.time || 'TBD';
-  const technician = booking.technician || booking.worker || 'To be assigned';
-  const location = booking.location || booking.address || 'Address not provided';
-  const status = (booking.status || 'pending').toLowerCase();
-  const price = booking.price || booking.cost || 'TBD';
-  
-  // Get service icon
-  const icon = serviceIcons[service] || serviceIcons.Default;
-  
-  // Format price if it's a number
-  const formattedPrice = typeof price === 'number' ? `₹${price}` : price;
-  
+// ================= CARD =================
+function createBookingCard(b) {
+  const icon = serviceIcons[b.service] || serviceIcons.Default;
+
   return `
-    <div class="booking-card" data-booking-id="${bookingId}">
+    <div class="booking-card">
       <div class="booking-header">
         <div>
-          <h4>${service}</h4>
-          <div class="booking-id">#${bookingId}</div>
+          <h4>${b.service}</h4>
+          <div class="booking-id">#${b.id}</div>
         </div>
         <div class="service-icon">${icon}</div>
       </div>
-      
+
       <div class="booking-info">
-        <div class="info-row">
-          <span class="info-icon">📅</span>
-          <span>${date}${time !== 'TBD' ? ' at ' + time : ''}</span>
-        </div>
-        <div class="info-row">
-          <span class="info-icon">👤</span>
-          <span>${technician}</span>
-        </div>
-        <div class="info-row">
-          <span class="info-icon">📍</span>
-          <span>${location}</span>
-        </div>
-        <div class="info-row">
-          <span class="info-icon">💰</span>
-          <span>${formattedPrice}</span>
-        </div>
+        <div class="info-row">📅 ${b.date || "TBD"} ${b.time || ""}</div>
+        <div class="info-row">👤 ${b.technician || "Assigning"}</div>
+        <div class="info-row">📍 ${b.address || "Not provided"}</div>
+        <div class="info-row">💰 ₹${b.price || "TBD"}</div>
       </div>
-      
+
       <div class="booking-footer">
-        <span class="status ${status}">${status}</span>
+        <span class="status ${b.status}">${b.status}</span>
         <div class="booking-actions">
-          <button class="action-btn" onclick="viewDetails(${bookingId})">View</button>
-          ${status === 'pending' ? 
-            `<button class="action-btn" onclick="cancelBooking(${bookingId})">Cancel</button>` : ''}
+          <button class="action-btn" onclick="viewDetails(${b.id})">View</button>
+          ${
+            b.status === "pending"
+              ? `<button class="action-btn" onclick="cancelBooking(${b.id})">Cancel</button>`
+              : ""
+          }
         </div>
       </div>
     </div>
   `;
 }
 
-// Setup Tab Filtering
+// ================= TABS =================
 function setupTabs() {
-  const tabs = document.querySelectorAll('.tab');
-  
-  tabs.forEach(tab => {
-    tab.addEventListener('click', function() {
-      // Remove active class from all tabs
-      tabs.forEach(t => t.classList.remove('active'));
-      
-      // Add active class to clicked tab
-      this.classList.add('active');
-      
-      // Update filter and re-render
-      currentFilter = this.dataset.filter;
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.onclick = () => {
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      currentFilter = tab.dataset.filter;
       renderBookings();
-    });
+    };
   });
 }
 
-// View Booking Details
-function viewDetails(bookingId) {
-  const booking = allBookings.find(b => b.id == bookingId);
-  
-  if (!booking) {
-    alert('Booking not found');
-    return;
-  }
-  
-  const details = `
-Booking Details:
-━━━━━━━━━━━━━━━━━━━━
-Booking ID: #${booking.id || 'N/A'}
-Service: ${booking.service || 'N/A'}
-Date: ${booking.date || 'Not scheduled'}
-Time: ${booking.time || 'TBD'}
-Technician: ${booking.technician || booking.worker || 'To be assigned'}
-Location: ${booking.location || booking.address || 'N/A'}
-Status: ${booking.status || 'Pending'}
-Price: ${typeof booking.price === 'number' ? '₹' + booking.price : booking.price || 'TBD'}
-━━━━━━━━━━━━━━━━━━━━
-  `.trim();
-  
-  alert(details);
-}
+// ================= ACTIONS =================
+window.viewDetails = id => {
+  const b = allBookings.find(x => x.id === id);
+  alert(JSON.stringify(b, null, 2));
+};
 
-// Cancel Booking
-async function cancelBooking(bookingId) {
-  if (!confirm('Are you sure you want to cancel this booking?')) {
-    return;
-  }
-  
-  try {
-    // Make API call to cancel booking
-    const response = await fetch(`http://127.0.0.1:8000/api/bookings/${bookingId}/cancel/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
-    
-    if (!response.ok) {
-      throw new Error('Failed to cancel booking');
-    }
-    
-    // Update local data
-    const bookingIndex = allBookings.findIndex(b => b.id == bookingId);
-    if (bookingIndex !== -1) {
-      allBookings[bookingIndex].status = 'cancelled';
-    }
-    
-    // Update UI
-    updateStats();
-    renderBookings();
-    
-    alert('Booking cancelled successfully');
-    
-  } catch (error) {
-    console.error('Error cancelling booking:', error);
-    alert('Unable to cancel booking. Please try again later.');
-  }
-}
+window.cancelBooking = async id => {
+  if (!confirm("Cancel booking?")) return;
 
-// Refresh Dashboard
-function refreshDashboard() {
-  location.reload();
-}
+  await fetch(`http://127.0.0.1:8000/api/bookings/${id}/cancel/`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
 
-// Export functions for inline onclick handlers
-window.viewDetails = viewDetails;
-window.cancelBooking = cancelBooking;
-window.refreshDashboard = refreshDashboard;
+  const booking = allBookings.find(b => b.id === id);
+  if (booking) booking.status = "cancelled";
+
+  updateStats();
+  renderBookings();
+};
