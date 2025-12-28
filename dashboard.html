@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Dashboard | FixIt</title>
+
+</head>
+<body>
+<header>
+  <div class="logo">FixIt</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="services/service.html">Services</a>
+    <a href="booking.html">Book Service</a>
+    <a href="dashboard.html" class="active">Dashboard</a>
+  </nav>
+</header>
+
+<section class="dashboard">
+  <div class="welcome-section">
+    <h2>Welcome back, <span id="user-name">User</span>! 👋</h2>
+    <p>Manage your service bookings and track your requests</p>
+  </div>
+
+  <!-- Stats Overview -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">📋</div>
+      <h3 id="total-bookings">0</h3>
+      <p>Total Bookings</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">⏳</div>
+      <h3 id="pending-count">0</h3>
+      <p>Pending</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">✅</div>
+      <h3 id="completed-count">0</h3>
+      <p>Completed</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🔧</div>
+      <h3 id="active-count">0</h3>
+      <p>Active</p>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" data-filter="all">All Bookings</button>
+    <button class="tab" data-filter="pending">Pending</button>
+    <button class="tab" data-filter="confirmed">Confirmed</button>
+    <button class="tab" data-filter="completed">Completed</button>
+  </div>
+
+  <!-- Bookings List -->
+  <div class="booking-list" id="booking-list">
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Loading your bookings...</p>
+    </div>
+  </div>
+</section>
+
+ 
+<footer>
+  © 2025 FixIt. All rights reserved.
+</footer>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>
+
+
