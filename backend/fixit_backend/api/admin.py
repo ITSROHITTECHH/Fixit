@@ -7,3 +7,5 @@ from .models import Booking
 admin.site.register(Contact)
 admin.site.register(Booking)
 
+
+

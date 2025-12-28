@@ -120,3 +120,8 @@ def create_booking(request):
         "success": "Booking created successfully",
         "booking_id": booking.id
     })
+
+
+
+
+

@@ -12,6 +12,8 @@ class Contact(models.Model):
         return self.name
 
 
+
+
 from django.db import models
 
 class Booking(models.Model):
@@ -27,4 +29,6 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.service}"
+
+
 

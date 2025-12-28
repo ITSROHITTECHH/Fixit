@@ -8,9 +8,9 @@ urlpatterns = [
     path('login/',login_api),
     path('contact/', contact_api),
     path('booking/', create_booking),
+    
+    
 ]
-
-
 
 
 
