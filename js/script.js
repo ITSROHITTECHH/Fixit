@@ -1,6 +1,7 @@
 console.log("Fixit frontend loaded");
 console.log("Contact JS loaded");
-
+console.log("signup js loaded");
+console.log("login js loaded");
 
 
 
@@ -57,6 +58,36 @@ if (signupForm) {
 
 
 
+// document.getElementById("loginForm").addEventListener("submit", function (e) {
+//   e.preventDefault();
+
+//   const email = document.querySelector('input[placeholder="Email"]').value;
+//   const password = document.querySelector('input[placeholder="Password"]').value;
+
+//   fetch("http://127.0.0.1:8000/api/login/", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify({
+//       email: email,
+//       password: password
+//     })
+//   })
+//   .then(res => res.json())
+//   .then(data => {
+//     alert(data.message);
+//   })
+//   .catch(err => {
+//     alert("Backend not connected");
+//     console.error(err);
+//   });
+// });
+
+
+
+
+
 document.getElementById("loginForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -66,22 +97,36 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   fetch("http://127.0.0.1:8000/api/login/", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      email: email,
-      password: password
+    body: JSON.stringify({ email, password }),
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (!data.access) {
+        alert(data.error || "Invalid login");
+        return;
+      }
+
+      // 🔑 SAVE TOKEN
+      localStorage.setItem("token", data.access);
+
+      // 👤 SAVE USER (optional)
+      if (data.user) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+      }
+
+      // 🚀 GO TO DASHBOARD
+      window.location.href = "dashboard.html";
     })
-  })
-  .then(res => res.json())
-  .then(data => {
-    alert(data.message);
-  })
-  .catch(err => {
-    alert("Backend not connected");
-    console.error(err);
-  });
+    .catch(err => {
+      alert("Backend not connected");
+      console.error(err);
+    });
 });
+
+
+
 
 
 

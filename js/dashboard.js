@@ -1,4 +1,10 @@
-console.log("dashboard js loaded")
+const token = localStorage.getItem("token");
+
+if (!token) {
+  window.location.href = "login.html";
+}
+
+console.log("dashboard JS loaded");
 
 // ================= SERVICE ICONS =================
 const serviceIcons = {
@@ -37,7 +43,7 @@ async function loadDashboard() {
           "Content-Type": "application/json",
           Authorization: token ? `Bearer ${token}` : "",
         },
-        credentials: "include", // ✅ Django session support
+        // credentials: "include", // ✅ Django session support
       }
     );
 
