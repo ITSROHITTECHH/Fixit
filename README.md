@@ -88,12 +88,11 @@ admin.py
 # 🗂️ Project Structure
 
 Fixit/
+├── assets/                         # Images, icons & UI assets
 │
-├── assets/                     # Images & UI assets
-│
-├── backend/
+├── backend/                        # Django backend
 │   └── fixit_backend/
-│       ├── api/
+│       ├── api/                    # Booking & dashboard APIs
 │       │   ├── migrations/
 │       │   ├── __init__.py
 │       │   ├── admin.py
@@ -103,22 +102,22 @@ Fixit/
 │       │   ├── urls.py
 │       │   └── views.py
 │       │
-│       ├── fixit_backend/
+│       ├── fixit_backend/          # Django project settings
 │       │   ├── __init__.py
 │       │   ├── asgi.py
 │       │   ├── settings.py
 │       │   ├── urls.py
 │       │   └── wsgi.py
 │       │
-│       ├── db.sqlite3
+│       ├── db.sqlite3              # Database
 │       └── manage.py
 │
-├── js/
+├── js/                             # Frontend JavaScript
 │   ├── booking.js
 │   ├── dashboard.js
 │   └── script.js
 │
-├── services/                   # Individual service pages
+├── services/                       # Individual service pages
 │   ├── plumbing.html
 │   ├── electrical.html
 │   ├── cleaning.html
@@ -127,21 +126,22 @@ Fixit/
 │   ├── wellness.html
 │   └── ... (30+ service pages)
 │
-├── index.html
-├── booking.html
-├── dashboard.html
-├── login.html
-├── signup.html
-├── about.html
-├── contact.html
-├── style.css
-└── README.md
+├── index.html                      # Home page
+├── booking.html                    # Service booking page
+├── dashboard.html                  # User dashboard
+├── login.html                      # Login page
+├── signup.html                     # Signup page
+├── about.html                      # About page
+├── contact.html                    # Contact page
+├── style.css                       # Global styles
+└── README.md                       # Project documentation
+
 
 ---
 
 # 🧠 Tech Stack
 
-Frontend
+# Frontend
 
 HTML5
 
@@ -149,7 +149,7 @@ CSS3
 
 JavaScript (Vanilla JS)
 
-Backend
+# Backend
 
 Python
 
@@ -212,7 +212,7 @@ https://x.com/itsrohit_tech
 
 ---
 
-⭐ Support
+# ⭐ Support
 
 If you like this project, don’t forget to star ⭐ the repository and share feedback!
 
