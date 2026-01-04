@@ -232,6 +232,17 @@ https://x.com/itsrohit_tech
 
 ---
 
+## 🔒 Project Ownership & Usage
+
+This project is created and maintained by **Rohit Kumar Srivastava**.
+
+You are allowed to explore, learn from, and fork this project under the
+terms of the MIT License. However, **claiming this project as your own,
+reselling it, or using it without proper attribution is strictly discouraged**.
+
+
+---
+
 # ⭐ Support
 
 If you like this project, don’t forget to star ⭐ the repository and share feedback!
