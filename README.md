@@ -85,7 +85,10 @@ admin.py
 
 ---
 
+
 ## 🗂️ Project Structure
+
+```
 
 Fixit/
 ├── assets/                         # Images, icons & UI assets
@@ -136,7 +139,7 @@ Fixit/
 ├── style.css                       # Global styles
 └── README.md                       # Project documentation
 ```
-```
+
 
 ---
 
