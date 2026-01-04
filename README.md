@@ -181,6 +181,10 @@ Dynamic UI updates using JavaScript
     
 Secure flow connected with backend login system
 
+# dashboard user
+
+![Dashboard](assets/dashboard.png)
+
 ---
 
 # 🎯 Purpose of This Project
