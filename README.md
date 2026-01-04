@@ -120,7 +120,7 @@ Fixit/
 │   ├── dashboard.js
 │   └── script.js
 │
-├── services/                       # Individual service pages
+├── services/                       # Individual service pages   
 │   ├── plumbing.html
 │   ├── electrical.html
 │   ├── cleaning.html
@@ -139,6 +139,10 @@ Fixit/
 ├── style.css                       # Global styles
 └── README.md                       # Project documentation
 ```
+
+# Main FIXIT Services Visuals (8*4)
+
+![Dashboard](assets/visual.png)
 
 
 ---
@@ -181,7 +185,8 @@ Dynamic UI updates using JavaScript
     
 Secure flow connected with backend login system
 
-# dashboard user
+# dashboard user (If my FIXIT is in real world )
+
 
 ![Dashboard](assets/dashboard.png)
 
