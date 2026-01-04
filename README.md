@@ -191,8 +191,7 @@ Portfolio-ready project for internships & placements
 
 # 🎨 Media Attribution
 
-All visuals used in this project are AI-generated using Gemini AI, created specifically for Fixit.
-No third-party downloaded assets are used.
+This project uses AI-generated visuals. All images and graphics were created using Gemini AI, specifically for Fixit. No third‑party downloaded assets are used.
 
 
 ---
