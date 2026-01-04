@@ -1,3 +1,11 @@
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+![Backend](https://img.shields.io/badge/Backend-Django-darkgreen)
+![Frontend](https://img.shields.io/badge/Frontend-JavaScript-yellow)
+![HTML](https://img.shields.io/badge/HTML-5-orange)
+![CSS](https://img.shields.io/badge/CSS-3-blue)
+![Status](https://img.shields.io/badge/Status-Active-success)
+
+
 # Fixit
 
 Fixit is a modern home repair and maintenance service website that makes it easy for users to discover, compare, and book local service professionals. Designed with a clean UI and smooth browsing experience, Fixit turns everyday household problems into quick and reliable solutions.
