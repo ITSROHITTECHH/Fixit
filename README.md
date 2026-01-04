@@ -85,7 +85,7 @@ admin.py
 
 ---
 
-# 🗂️ Project Structure
+## 🗂️ Project Structure
 
 Fixit/
 ├── assets/                         # Images, icons & UI assets
@@ -135,7 +135,8 @@ Fixit/
 ├── contact.html                    # Contact page
 ├── style.css                       # Global styles
 └── README.md                       # Project documentation
-
+```
+```
 
 ---
 
