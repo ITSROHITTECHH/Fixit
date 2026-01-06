@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: fixit_backend
+    env: python
+    buildCommand: pip install -r backend/fixit_backend/requirements.txt
+    startCommand: gunicorn fixit_backend.wsgi:application
+    rootDir: backend/fixit_backend
