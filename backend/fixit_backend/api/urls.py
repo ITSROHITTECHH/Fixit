@@ -14,8 +14,17 @@ urlpatterns = [
 
 
 
+# from django.urls import path
+# from . import views
 
-
+# urlpatterns = [
+#     path('api/test/', views.test_api),
+#     path('api/signup/', views.signup),
+#     path('api/login/', views.login_api),
+#     path('api/contact/', views.contact_api),
+#     path('api/booking/', views.create_booking),
+#     path('api/mybookings/', views.my_bookings),
+# ]
 
 
 
