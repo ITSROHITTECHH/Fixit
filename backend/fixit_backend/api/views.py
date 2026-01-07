@@ -1,250 +1,100 @@
-# from django.shortcuts import render
-
-# # Create your views here.
-
-# from rest_framework.decorators import api_view
-# from rest_framework.response import Response
-
-
-
-# def contact_page(request):
-#     return render(request, 'contact.html')
-
-
-
-
-# @api_view(['GET'])
-# def test_api(request):
-#     return Response({
-#         "status": "success",
-#         "message": "Fixit backend connected successfully 🚀"
-#     })
-
-
-
-# from django.contrib.auth.models import User
-# from rest_framework.decorators import api_view
-# from rest_framework.response import Response
-
-# @api_view(['POST'])
-# def signup(request):
-#     email = request.data.get('email')
-#     password = request.data.get('password')
-
-#     if not email or not password:
-#         return Response({"error": "All fields are required"}, status=400)
-
-#     if User.objects.filter(username=email).exists():
-#         return Response({"error": "User already exists"}, status=400)
-
-#     user = User.objects.create_user(
-#         username=email,   # 👈 EMAIL AS USERNAME
-#         email=email,
-#         password=password
-#     )
-
-#     return Response({"message": "Signup successful"})
-
-
-  
-# from django.contrib.auth import authenticate
-# from rest_framework.decorators import api_view
-# from rest_framework.response import Response
-
-# @api_view(['POST'])
-# def login_api(request):
-#     email = request.data.get('email')
-#     password = request.data.get('password')
-
-#     if not email or not password:
-#         return Response({"error": "Email and password required"}, status=400)
-
-#     user = authenticate(request, username=email, password=password)
-
-#     if user is not None:
-#         return Response({"success": "Login successful"})
-#     else:
-#         return Response({"error": "Invalid credentials"}, status=401)
-
-
-
-
-
-
-
-
-# from .models import Contact
-# from rest_framework.decorators import api_view
-# from rest_framework.response import Response
-
-# @api_view(['POST'])
-# def contact_api(request):
-#     name = request.data.get('name')
-#     email = request.data.get('email')
-#     subject = request.data.get('subject')
-#     message = request.data.get('message')
-
-#     if not all([name, email, subject, message]):
-#         return Response({"error": "All fields required"}, status=400)
-
-#     Contact.objects.create(
-#         name=name,
-#         email=email,
-#         subject=subject,
-#         message=message
-#     )
-
-#     return Response({"success": "Message sent successfully"})
-
-
-
-
-
-
-
-# from rest_framework.decorators import api_view
-# from rest_framework.response import Response
-# from .models import Booking
-
-# @api_view(['POST'])
-# def create_booking(request):
-#     data = request.data
-
-#     booking = Booking.objects.create(
-#         service=data.get('service'),
-#         name=data.get('name'),
-#         email=data.get('email'),
-#         phone=data.get('phone'),
-#         address=data.get('address'),
-#         date=data.get('date'),
-#         time=data.get('time'),
-#         description=data.get('description', '')
-#     )
-
-#     return Response({
-#         "success": "Booking created successfully",
-#         "booking_id": booking.id
-#     })
-
-
-
-
-
-
-
-# from django.http import JsonResponse
-# from django.contrib.auth.decorators import login_required
-
-# def my_bookings(request):
-#     return JsonResponse({
-#         "user": {"name": request.user.username},
-#         "bookings": []
-#     })
-
-
-
-
-
-
-
 from django.shortcuts import render
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+
+# Create your views here.
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Contact, Booking
-import json
 
-# -----------------------------
-# Render pages
-# -----------------------------
+
+
 def contact_page(request):
     return render(request, 'contact.html')
 
 
-# -----------------------------
-# Test API
-# -----------------------------
+
+
 @api_view(['GET'])
 def test_api(request):
-    return Response({"status": "success", "message": "Fixit backend connected successfully 🚀"})
+    return Response({
+        "status": "success",
+        "message": "Fixit backend connected successfully 🚀"
+    })
 
 
-# -----------------------------
-# Signup API
-# -----------------------------
+
+from django.contrib.auth.models import User
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 @api_view(['POST'])
 def signup(request):
-    try:
-        data = request.data if request.data else json.loads(request.body)
-        email = data.get('email')
-        password = data.get('password')
+    email = request.data.get('email')
+    password = request.data.get('password')
 
-        if not email or not password:
-            return Response({"error": "All fields are required"}, status=400)
+    if not email or not password:
+        return Response({"error": "All fields are required"}, status=400)
 
-        if User.objects.filter(username=email).exists():
-            return Response({"error": "User already exists"}, status=400)
+    if User.objects.filter(username=email).exists():
+        return Response({"error": "User already exists"}, status=400)
 
-        User.objects.create_user(username=email, email=email, password=password)
-        return Response({"message": "Signup successful"}, status=200)
+    user = User.objects.create_user(
+        username=email,   # 👈 EMAIL AS USERNAME
+        email=email,
+        password=password
+    )
 
-    except Exception as e:
-        print("SIGNUP ERROR:", e)
-        return Response({"error": str(e)}, status=500)
+    return Response({"message": "Signup successful"})
 
 
-# -----------------------------
-# Login API
-# -----------------------------
+  
+from django.contrib.auth import authenticate
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 @api_view(['POST'])
 def login_api(request):
-    try:
-        data = request.data if request.data else json.loads(request.body)
-        email = data.get('email')
-        password = data.get('password')
+    email = request.data.get('email')
+    password = request.data.get('password')
 
-        if not email or not password:
-            return Response({"error": "Email and password required"}, status=400)
+    if not email or not password:
+        return Response({"error": "Email and password required"}, status=400)
 
-        user = authenticate(request, username=email, password=password)
-        if user is None:
-            return Response({"error": "Invalid credentials"}, status=401)
+    user = authenticate(request, username=email, password=password)
 
-        return Response({
-            "message": "Login successful",
-            "user": {"username": user.username, "email": user.email}
-        }, status=200)
-
-    except Exception as e:
-        print("LOGIN ERROR:", e)
-        return Response({"error": str(e)}, status=500)
+    if user is not None:
+        return Response({"success": "Login successful"})
+    else:
+        return Response({"error": "Invalid credentials"}, status=401)
 
 
-# -----------------------------
-# Contact API
-# -----------------------------
+
+
+
+
+
+
+from .models import Contact
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 @api_view(['POST'])
 def contact_api(request):
-    try:
-        data = request.data if request.data else json.loads(request.body)
-        name = data.get('name')
-        email = data.get('email')
-        subject = data.get('subject')
-        message = data.get('message')
+    name = request.data.get('name')
+    email = request.data.get('email')
+    subject = request.data.get('subject')
+    message = request.data.get('message')
 
-        if not all([name, email, subject, message]):
-            return Response({"error": "All fields are required"}, status=400)
+    if not all([name, email, subject, message]):
+        return Response({"error": "All fields required"}, status=400)
 
-        Contact.objects.create(name=name, email=email, subject=subject, message=message)
-        return Response({"message": "Message sent successfully ✅"}, status=200)
+    Contact.objects.create(
+        name=name,
+        email=email,
+        subject=subject,
+        message=message
+    )
 
-    except Exception as e:
-        print("CONTACT ERROR:", e)
-        return Response({"error": str(e)}, status=500)
-
-
+    return Response({"success": "Message sent successfully"})
 
 
 
@@ -252,51 +102,48 @@ def contact_api(request):
 
 
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import Booking
 
-# -----------------------------
-# Booking API
-# -----------------------------
 @api_view(['POST'])
 def create_booking(request):
-    try:
-        data = request.data if request.data else json.loads(request.body)
+    data = request.data
 
-        booking = Booking.objects.create(
-            service=data.get('service'),
-            name=data.get('name'),
-            email=data.get('email'),
-            phone=data.get('phone'),
-            address=data.get('address'),
-            date=data.get('date'),
-            time=data.get('time'),
-            description=data.get('description', '')
-        )
+    booking = Booking.objects.create(
+        service=data.get('service'),
+        name=data.get('name'),
+        email=data.get('email'),
+        phone=data.get('phone'),
+        address=data.get('address'),
+        date=data.get('date'),
+        time=data.get('time'),
+        description=data.get('description', '')
+    )
 
-        return Response({"message": "Booking created successfully", "booking_id": booking.id}, status=200)
-
-    except Exception as e:
-        print("BOOKING ERROR:", e)
-        return Response({"error": str(e)}, status=500)
+    return Response({
+        "success": "Booking created successfully",
+        "booking_id": booking.id
+    })
 
 
-# -----------------------------
-# My Bookings API
-# -----------------------------
-@api_view(['GET'])
+
+
+
+
+
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+
 def my_bookings(request):
-    try:
-        if not request.user.is_authenticated:
-            return Response({"error": "Authentication required"}, status=401)
+    return JsonResponse({
+        "user": {"name": request.user.username},
+        "bookings": []
+    })
 
-        bookings = Booking.objects.filter(email=request.user.email).values(
-            "id", "service", "date", "time", "status"
-        )
 
-        return Response({
-            "user": {"username": request.user.username, "email": request.user.email},
-            "bookings": list(bookings)
-        }, status=200)
 
-    except Exception as e:
-        print("MY BOOKINGS ERROR:", e)
-        return Response({"error": str(e)}, status=500)
+
+
+
+
