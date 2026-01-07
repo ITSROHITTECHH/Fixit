@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/booking/", {
+      const response = await fetch("https://fixit-r6j0.onrender.com/api/booking/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,3 +55,10 @@ if (service) {
   document.getElementById("selected-service").innerText =
     "Service: " + service.replace("-", " ").toUpperCase();
 }
+
+
+
+
+
+
+

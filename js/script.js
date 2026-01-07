@@ -5,7 +5,7 @@ console.log("login js loaded");
 
 
 
-fetch("http://127.0.0.1:8000/api/test/")
+fetch("https://fixit-r6j0.onrender.com/api/test/")
   .then(response => response.json())
   .then(data => {
     console.log("Backend response:", data);
@@ -35,7 +35,7 @@ if (signupForm) {
 
     const formData = new FormData(signupForm);
 
-    fetch("http://127.0.0.1:8000/api/signup/", {
+    fetch("https://fixit-r6j0.onrender.com/api/signup/", {
       method: "POST",
       body: formData,
     })
@@ -58,33 +58,6 @@ if (signupForm) {
 
 
 
-// document.getElementById("loginForm").addEventListener("submit", function (e) {
-//   e.preventDefault();
-
-//   const email = document.querySelector('input[placeholder="Email"]').value;
-//   const password = document.querySelector('input[placeholder="Password"]').value;
-
-//   fetch("http://127.0.0.1:8000/api/login/", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json"
-//     },
-//     body: JSON.stringify({
-//       email: email,
-//       password: password
-//     })
-//   })
-//   .then(res => res.json())
-//   .then(data => {
-//     alert(data.message);
-//   })
-//   .catch(err => {
-//     alert("Backend not connected");
-//     console.error(err);
-//   });
-// });
-
-
 
 
 
@@ -94,7 +67,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   const email = document.querySelector('input[placeholder="Email"]').value;
   const password = document.querySelector('input[placeholder="Password"]').value;
 
-  fetch("http://127.0.0.1:8000/api/login/", {
+  fetch("https://fixit-r6j0.onrender.com/api/login/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -158,7 +131,7 @@ if (contactForm) {
     }
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/contact/", {
+      const res = await fetch("https://fixit-r6j0.onrender.com/api/contact/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -180,6 +153,10 @@ if (contactForm) {
     }
   });
 }
+
+
+
+
 
 
 

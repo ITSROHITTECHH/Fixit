@@ -36,7 +36,7 @@ async function loadDashboard() {
     const token = localStorage.getItem("token"); // 🔑 JWT TOKEN
 
     const response = await fetch(
-      "http://127.0.0.1:8000/api/my-bookings/",
+      "https://fixit-r6j0.onrender.com/api/my-bookings/",
       {
         method: "GET",
         headers: {
@@ -197,3 +197,8 @@ window.cancelBooking = async id => {
   updateStats();
   renderBookings();
 };
+
+
+
+
+
