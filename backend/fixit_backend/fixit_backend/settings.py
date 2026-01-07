@@ -31,7 +31,7 @@ DEBUG = True
 
 
 
-# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['https://fixit-r6j0.onrender.com/']
 
 
