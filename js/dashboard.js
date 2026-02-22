@@ -184,7 +184,7 @@ window.viewDetails = id => {
 window.cancelBooking = async id => {
   if (!confirm("Cancel booking?")) return;
 
-  await fetch(`http://127.0.0.1:8000/api/bookings/${id}/cancel/`, {
+  await fetch(`https://fixit-r6j0.onrender.com/api/my-bookings/${id}/cancel/`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
