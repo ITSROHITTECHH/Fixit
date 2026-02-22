@@ -5,7 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fixit - Home</title>
   <link rel="stylesheet" href="style.css">
+  <!-- <link rel="stylesheet" href="mobile-menu.css"> -->
   <style>
+
+  /* HEADER FIX */
+  /* header {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 20px 40px !important;
+    flex-wrap: wrap !important;
+  }
+  header nav {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 20px !important;
+  }
+  header nav a {
+    display: inline-block !important;
+    padding: 10px 15px !important;
+  }
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column !important;
+      gap: 15px !important;
+    }
+    header nav {
+      flex-wrap: wrap !important;
+      justify-content: center !important;
+    }
+  } */
+
+
+
+
+
+
     /* Enhanced Testimonials Section - Orange Theme */
     .testimonials {
       background: linear-gradient(135deg, #ff5722 0%, #e64a19 100%);
@@ -311,9 +347,18 @@
 </head>
 <body class="abstract-bg">
 
-  <header>
-    <h1 class="logo">Fixit</h1>
-    <nav>
+   <header>
+    <h1 class="logo">Fixit</h1> 
+
+     <!-- Hamburger Menu Button (Only shows on mobile) -->
+  <!-- <button class="mobile-menu-toggle" aria-label="Toggle menu" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button> -->
+
+    <!-- Navigation Menu  -->
+      <nav>
       <a href="index.html">Home</a>
       <a href="services/service.html">Services</a>
       <a href="dashboard.html">Dashboard</a>
@@ -321,7 +366,9 @@
       <a href="contact.html">Contact</a>
       <a href="signup.html">Signup</a>
     </nav>
-  </header>
+  </header> 
+
+
 
   <main>
     <!-- Original Hero Section -->
@@ -550,5 +597,6 @@
 
     <!-- This connects frontend to backend -->
     <script src="js/script.js"></script>
+
     
 </body>
