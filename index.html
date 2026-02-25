@@ -5,102 +5,846 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fixit - Home</title>
   <link rel="stylesheet" href="style.css">
-  <!-- <link rel="stylesheet" href="mobile-menu.css"> -->
+
   <style>
 
-  /* HEADER FIX */
-  /* header {
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    padding: 20px 40px !important;
-    flex-wrap: wrap !important;
-  }
-  header nav {
-    display: flex !important;
-    flex-direction: row !important;
-    gap: 20px !important;
-  }
-  header nav a {
-    display: inline-block !important;
-    padding: 10px 15px !important;
-  }
-  @media (max-width: 768px) {
+    /* ===================== */
+    /* SCROLL PROGRESS BAR   */
+    /* ===================== */
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, #ff5722, #ff8a65, #ff5722);
+      background-size: 200% 100%;
+      z-index: 9998;
+      transition: width 0.1s linear;
+      animation: shimmer 2s linear infinite;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ===================== */
+    /* GLASS HEADER ON SCROLL*/
+    /* ===================== */
     header {
-      flex-direction: column !important;
-      gap: 15px !important;
+      transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease !important;
     }
-    header nav {
-      flex-wrap: wrap !important;
-      justify-content: center !important;
+    header.scrolled {
+      background: rgba(17,17,17,0.85) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.4) !important;
     }
-  } */
 
+    /* ===================== */
+    /* CURSOR GLOW TRAIL     */
+    /* ===================== */
+    .cursor-glow {
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,87,34,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      transform: translate(-50%, -50%);
+      transition: left 0.12s ease, top 0.12s ease;
+    }
 
+    /* ===================== */
+    /* 3D CARD TILT          */
+    /* ===================== */
+    .service-card {
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease, box-shadow 0.3s ease !important;
+      will-change: transform;
+    }
 
+    /* ===================== */
+    /* TESTIMONIAL CAROUSEL  */
+    /* ===================== */
+    .testimonial-container {
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonial-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+      gap: 30px;
+    }
+    .testimonial-card {
+      flex: 0 0 calc(33.333% - 20px);
+      min-width: calc(33.333% - 20px);
+    }
+    .testimonial-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 30px;
+    }
+    .t-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      padding: 0;
+    }
+    .t-dot.active {
+      background: white;
+      width: 24px;
+      border-radius: 4px;
+    }
+    @media (max-width: 900px) {
+      .testimonial-card {
+        flex: 0 0 calc(100% - 0px);
+        min-width: 100%;
+      }
+    }
 
+    /* ===================== */
+    /* SERVICE CARD SHIMMER  */
+    /* ===================== */
+    .service-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: inherit;
+      pointer-events: none;
+    }
+    .service-card:hover::after {
+      opacity: 1;
+    }
 
+    /* ===================== */
+    /* SMOOTH ANCHOR SCROLL  */
+    /* ===================== */
+    html { scroll-behavior: smooth; }
 
-    /* Enhanced Testimonials Section - Orange Theme */
-    .testimonials {
-      background: linear-gradient(135deg, #ff5722 0%, #e64a19 100%);
-      padding: 80px 20px;
-      text-align: center;
+    /* ===================== */
+    /* PAGE LOADER           */
+    /* ===================== */
+    #page-loader {
+      position: fixed;
+      inset: 0;
+      background: #111;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #page-loader.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loader-logo {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #ff5722;
+      letter-spacing: 2px;
+    }
+    .loader-bar-wrap {
+      width: 160px;
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .loader-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff5722, #ff8a65);
+      border-radius: 3px;
+      animation: loadBar 1.2s ease forwards;
+    }
+    @keyframes loadBar {
+      to { width: 100%; }
+    }
+    .loader-text {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* ===================== */
+    /* SCROLL REVEAL         */
+    /* ===================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ===================== */
+    /* FLOATING BOOK NOW BTN */
+    /* ===================== */
+    .float-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1500;
+      background: linear-gradient(135deg, #ff5722, #e64a19);
       color: white;
+      text-decoration: none;
+      padding: 14px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      box-shadow: 0 8px 28px rgba(255,87,34,0.5);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      animation: floatPulse 2.5s ease-in-out infinite;
+    }
+    .float-btn:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 14px 36px rgba(255,87,34,0.7);
+      animation-play-state: paused;
+    }
+    @keyframes floatPulse {
+      0%, 100% { box-shadow: 0 8px 28px rgba(255,87,34,0.5); }
+      50%       { box-shadow: 0 8px 40px rgba(255,87,34,0.85); }
+    }
+    @media (max-width: 768px) {
+      .float-btn span.label { display: none; }
+      .float-btn {
+        width: 54px; height: 54px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 50%;
+        bottom: 20px; right: 20px;
+      }
+    }
+
+    /* ===================== */
+    /* TYPED TEXT HERO       */
+    /* ===================== */
+    .typed-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1em;
+      background: #ff5722;
+      margin-left: 3px;
+      vertical-align: middle;
+      animation: blink 0.75s step-end infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    /* ===================== */
+    /* HAMBURGER MENU STYLES */
+    /* ===================== */
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 42px;
+      height: 42px;
+      cursor: pointer;
+      background: #ff5722;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 9px;
+      z-index: 1001;
+      box-shadow: 0 2px 8px rgba(255, 87, 34, 0.5);
+    }
+
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background-color: #ffffff;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    /* Hamburger → X animation */
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(9.5px) rotate(45deg);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-9.5px) rotate(-45deg);
+    }
+
+    /* Mobile overlay backdrop */
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+    .nav-overlay.active {
+      display: block;
+    }
+
+
+    /* ===================== */
+    /* MOBILE RESPONSIVE     */
+    /* ===================== */
+
+    @media (max-width: 768px) {
+
+      /* --- Header --- */
+      header {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 15px 20px !important;
+        position: relative;
+        z-index: 1000;
+      }
+
+      /* Show hamburger on mobile */
+      .hamburger {
+        display: flex;
+      }
+
+      /* Mobile nav drawer (slides from right) */
+      header nav {
+        display: flex !important;
+        flex-direction: column !important;
+        position: fixed !important;
+        top: 0;
+        right: -100%;
+        width: 260px;
+        height: 100vh;
+        background: #111;
+        padding: 80px 30px 30px;
+        gap: 10px !important;
+        z-index: 1000;
+        transition: right 0.35s ease;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.4);
+      }
+
+      header nav.open {
+        right: 0;
+      }
+
+      header nav a {
+        display: block !important;
+        padding: 12px 15px !important;
+        color: #fff;
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        text-decoration: none;
+        transition: color 0.2s ease, padding-left 0.2s ease;
+      }
+
+      header nav a:hover {
+        color: #ff5722;
+        padding-left: 22px !important;
+      }
+
+      /* --- Hero --- */
+      .hero {
+        padding: 60px 20px !important;
+        text-align: center;
+      }
+
+      .hero-content h2 {
+        font-size: 2rem !important;
+      }
+
+      .hero-content p {
+        font-size: 1rem !important;
+      }
+
+      /* --- Services Section --- */
+      #services {
+        padding: 40px 15px !important;
+      }
+
+      #services h3 {
+        font-size: 1.8rem !important;
+        text-align: center;
+      }
+
+      .service-cards {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 15px !important;
+      }
+
+      .service-card {
+        min-height: 160px !important;
+        border-radius: 12px !important;
+      }
+
+      .service-card h4 {
+        font-size: 1rem !important;
+      }
+
+      .service-card p {
+        font-size: 0.82rem !important;
+      }
+
+      /* Single column on very small screens */
+      @media (max-width: 400px) {
+        .service-cards {
+          grid-template-columns: 1fr !important;
+        }
+      }
+
+      /* --- Testimonials --- */
+      .testimonials {
+        padding: 50px 15px !important;
+      }
+
+      .testimonials h3 {
+        font-size: 1.8rem !important;
+        margin-bottom: 30px !important;
+      }
+
+      .testimonial-container {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        text-align: left !important;
+      }
+
+      .testimonial-card {
+        padding: 22px !important;
+      }
+
+      /* --- CTA --- */
+      .cta {
+        padding: 60px 20px !important;
+      }
+
+      .cta h3 {
+        font-size: 1.9rem !important;
+      }
+
+      .cta p {
+        font-size: 1rem !important;
+      }
+
+      .cta .btn {
+        padding: 14px 35px !important;
+        font-size: 1rem !important;
+      }
+
+      /* --- Footer --- */
+      .footer-container {
+        padding: 40px 15px 0 !important;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+      }
+
+      .footer-bottom {
+        flex-direction: column !important;
+        text-align: center !important;
+        padding: 20px 15px !important;
+      }
+
+      .footer-bottom-links {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+      }
+
+      .social-links {
+        flex-wrap: wrap;
+      }
+    }
+
+    /* ===================== */
+    /* ABOUT US TEASER       */
+    /* ===================== */
+
+    .about-teaser {
+      padding: 50px 20px;
+      text-align: center;
+      background: #1a1a1a;
+    }
+
+    .about-teaser-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 18px;
+    }
+
+    /* Button bounce animation */
+    @keyframes bounceX {
+      0%   { transform: translateX(0); }
+      50%  { transform: translateX(8px); }
+      100% { transform: translateX(0); }
+    }
+
+    .about-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #ff5722, #e64a19);
+      color: white;
+      text-decoration: none;
+      padding: 15px 35px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      box-shadow: 0 8px 25px rgba(255, 87, 34, 0.4);
+      animation: bounceX 1.6s ease-in-out infinite;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .about-btn:hover {
+      box-shadow: 0 14px 35px rgba(255, 87, 34, 0.65);
+      animation-play-state: paused;
+    }
+
+    .about-btn svg {
+      flex-shrink: 0;
+    }
+
+    /* ---- Slide-in panel overlay ---- */
+    .about-panel-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .about-panel-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .about-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      max-width: 520px;
+      height: 100vh;
+      background: #111;
+      z-index: 2001;
+      transform: translateX(-100%);
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      overflow-y: auto;
+      padding: 50px 40px;
+      box-shadow: 8px 0 40px rgba(0,0,0,0.5);
+    }
+
+    .about-panel.active {
+      transform: translateX(0);
+    }
+
+    .about-panel-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 38px;
+      height: 38px;
+      background: rgba(255,255,255,0.08);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+
+    .about-panel-close:hover {
+      background: #ff5722;
+    }
+
+    .about-panel h2 {
+      color: #ff5722;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .about-panel .panel-tagline {
+      color: rgba(255,255,255,0.45);
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+
+    .about-panel p {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.98rem;
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+
+    .about-panel-divider {
+      width: 50px;
+      height: 3px;
+      background: #ff5722;
+      border-radius: 2px;
+      margin: 28px 0;
+    }
+
+    .about-panel-values {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 30px;
+    }
+
+    .about-panel-values li {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.95rem;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .about-panel-values li::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: #ff5722;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .about-panel-cta {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 13px 30px;
+      background: linear-gradient(135deg, #ff5722, #e64a19);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(255,87,34,0.35);
+    }
+
+    .about-panel-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(255,87,34,0.55);
+    }
+
+    @media (max-width: 768px) {
+      .about-panel {
+        max-width: 100%;
+        padding: 50px 25px;
+      }
+    }
+
+    /* ===================== */
+    /* TESTIMONIALS REDESIGN */
+    /* ===================== */
+    .testimonials {
+      background: #0d0d0d;
+      padding: 90px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle bg glow */
+    .testimonials::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(255,87,34,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .testimonials-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #ff5722;
+      margin-bottom: 14px;
     }
 
     .testimonials h3 {
-      font-size: 2.5rem;
-      margin-bottom: 50px;
-      font-weight: 700;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 55px;
+      line-height: 1.2;
+    }
+
+    .testimonials h3 span {
+      color: #ff5722;
     }
 
     .testimonial-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      max-width: 1200px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .testimonial-card {
-      background:rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
+      background: #161616;
+      border: 1px solid rgba(255,255,255,0.06);
       border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 32px 28px;
+      text-align: left;
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* top accent line */
+    .testimonial-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #ff5722, #ff8a65);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .testimonial-card:hover::before {
+      transform: scaleX(1);
     }
 
     .testimonial-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-      background: rgba(223, 93, 18, 0.842);
+      border-color: rgba(255,87,34,0.25);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
     }
 
-    .testimonial-stars {
-      color: #fff3cd;
-      font-size: 1.5rem;
-      margin-bottom: 15px;
+    /* big quote mark */
+    .testimonial-quote {
+      font-size: 5rem;
+      line-height: 0.6;
+      color: rgba(255,87,34,0.2);
+      font-family: Georgia, serif;
+      margin-bottom: 18px;
+      display: block;
     }
 
     .testimonial-text {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin-bottom: 20px;
-      font-style: italic;
+      font-size: 0.97rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 24px;
+      font-style: normal;
+    }
+
+    .testimonial-footer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testimonial-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff5722, #e64a19);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1rem;
+      color: white;
+      flex-shrink: 0;
     }
 
     .testimonial-author {
-      font-weight: 600;
-      font-size: 1rem;
-      opacity: 0.9;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #fff;
     }
 
-    /* Enhanced CTA Section - Orange Theme */
+    .testimonial-role {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 2px;
+    }
+
+    .testimonial-stars {
+      color: #ff8a65;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+
+    /* middle card highlight */
+    .testimonial-card.featured {
+      background: #1a1a1a;
+      border-color: rgba(255,87,34,0.3);
+      box-shadow: 0 0 40px rgba(255,87,34,0.08);
+    }
+    .testimonial-card.featured::before {
+      transform: scaleX(1);
+    }
+
+    @media (max-width: 900px) {
+      .testimonial-container {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+      }
+    }
+    @media (max-width: 768px) {
+      .testimonials h3 { font-size: 1.8rem !important; margin-bottom: 35px !important; }
+      .testimonials { padding: 60px 20px !important; }
+    }
+
+    /* ===================== */
+    /* ENHANCED CTA          */
+    /* ===================== */
+
     .cta {
       background: linear-gradient(135deg, #111 0%, #111 100%);
       padding: 100px 20px;
@@ -112,10 +856,7 @@
     .cta::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background: 
         radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.3), transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(247, 147, 30, 0.3), transparent 50%);
@@ -162,10 +903,12 @@
     .cta .btn:hover {
       transform: translateY(-5px) scale(1.05);
       box-shadow: 0 15px 40px rgba(255, 107, 53, 0.6);
-      background: linear-gradient(135deg, #ff5722 0%, #e64a19 100%);
     }
 
-    /* Enhanced Footer */
+    /* ===================== */
+    /* ENHANCED FOOTER       */
+    /* ===================== */
+
     .footer-enhanced {
       background: linear-gradient(135deg, #111 0%, #111 100%);
       color: white;
@@ -185,51 +928,39 @@
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 40px;
       padding-bottom: 40px;
+      text-align: left;
     }
 
-    .footer-column h2,
-    .footer-column h3 {
+    .footer-column h2, .footer-column h3 {
       color: #ff5722;
       margin-bottom: 20px;
       font-weight: 700;
     }
 
-    .footer-column h2 {
-      font-size: 2rem;
-    }
-
-    .footer-column h3 {
-      font-size: 1.2rem;
-    }
+    .footer-column h2 { font-size: 2rem; }
+    .footer-column h3 { font-size: 1.2rem; }
 
     .footer-tagline {
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255,255,255,0.7);
       font-size: 0.9rem;
       margin-top: -10px;
       margin-bottom: 15px;
     }
 
     .footer-description {
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255,255,255,0.8);
       line-height: 1.6;
       margin-bottom: 20px;
       font-size: 0.95rem;
     }
 
-    .social-links {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+    .social-links { display: flex; gap: 12px; flex-wrap: wrap; }
 
     .social-icon {
-      width: 40px;
-      height: 40px;
+      width: 40px; height: 40px;
       background: rgba(255, 107, 53, 0.2);
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       color: #e64a19;
       transition: all 0.3s ease;
     }
@@ -240,44 +971,31 @@
       transform: translateY(-3px);
     }
 
-    .footer-links,
-    .footer-contact {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+    .footer-links, .footer-contact { list-style: none; padding: 0; margin: 0; }
 
-    .footer-links li {
-      margin-bottom: 12px;
-    }
+    .footer-links li { margin-bottom: 12px; }
 
     .footer-links a {
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255,255,255,0.8);
       text-decoration: none;
       transition: color 0.3s ease;
       font-size: 0.95rem;
     }
 
-    .footer-links a:hover {
-      color: #ff5722;
-    }
+    .footer-links a:hover { color: #ff5722; }
 
     .footer-contact li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      display: flex; align-items: center; gap: 12px;
       margin-bottom: 15px;
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255,255,255,0.8);
       font-size: 0.95rem;
+      text-align: left;
     }
 
-    .footer-contact svg {
-      color: #ff5722;
-      flex-shrink: 0;
-    }
+    .footer-contact svg { color: #ff5722; flex-shrink: 0; }
 
     .footer-bottom {
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255,255,255,0.1);
       padding: 25px 20px;
       display: flex;
       justify-content: space-between;
@@ -286,208 +1004,240 @@
       gap: 20px;
     }
 
-    .footer-bottom p {
-      margin: 0;
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 0.9rem;
-    }
+    .footer-bottom p { margin: 0; color: rgba(255,255,255,0.6); font-size: 0.9rem; }
 
-    .footer-bottom-links {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-    }
+    .footer-bottom-links { display: flex; gap: 15px; align-items: center; }
 
     .footer-bottom-links a {
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(255,255,255,0.6);
       text-decoration: none;
       font-size: 0.9rem;
       transition: color 0.3s ease;
     }
 
-    .footer-bottom-links a:hover {
-      color: #ff5722;
-    }
+    .footer-bottom-links a:hover { color: #ff5722; }
 
-    .footer-bottom-links .separator {
-      color: rgba(255, 255, 255, 0.3);
-    }
+    .footer-bottom-links .separator { color: rgba(255,255,255,0.3); }
 
-    @media (max-width: 768px) {
-      .testimonials h3 {
-        font-size: 2rem;
-      }
-
-      .testimonial-container {
-        grid-template-columns: 1fr;
-      }
-
-      .cta h3 {
-        font-size: 2rem;
-      }
-
-      .cta p {
-        font-size: 1.1rem;
-      }
-
-      .footer-top {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-bottom {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .footer-bottom-links {
-        justify-content: center;
-      }
-    }
   </style>
 </head>
 <body class="abstract-bg">
 
-   <header>
-    <h1 class="logo">Fixit</h1> 
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
 
-     <!-- Hamburger Menu Button (Only shows on mobile) -->
-  <!-- <button class="mobile-menu-toggle" aria-label="Toggle menu" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button> -->
+  <!-- Cursor Glow -->
+  <div class="cursor-glow" id="cursorGlow"></div>
 
-    <!-- Navigation Menu  -->
-      <nav>
-      <a href="index.html">Home</a>
-      <a href="services/service.html">Services</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="about.html">About Us</a>
-      <a href="contact.html">Contact</a>
-      <a href="signup.html">Signup</a>
+  <!-- Page Loader -->
+  <div id="page-loader">
+    <div class="loader-logo">Fixit</div>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+    <div class="loader-text">Loading your experience...</div>
+  </div>
+
+  <!-- Floating Book Now Button -->
+  <a href="signup.html" class="float-btn" title="Book Now">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+    <span class="label">Book Now</span>
+  </a>
+
+  <!-- Overlay backdrop for mobile nav -->
+  <div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>
+
+  <header>
+    <h1 class="logo">Fixit</h1>
+
+    <!-- Hamburger Button (mobile only) -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Navigation Menu -->
+    <nav id="mainNav">
+      <a href="index.html" onclick="closeMenu()">Home</a>
+      <a href="services/service.html" onclick="closeMenu()">Services</a>
+      <a href="dashboard.html" onclick="closeMenu()">Dashboard</a>
+      <a href="about.html" onclick="closeMenu()">About Us</a>
+      <a href="contact.html" onclick="closeMenu()">Contact</a>
+      <a href="signup.html" onclick="closeMenu()">Signup</a>
     </nav>
-  </header> 
-
-
+  </header>
 
   <main>
-    <!-- Original Hero Section -->
+    <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content">
-        <h2>Welcome to Fixit</h2>
-        <p>Find services, post jobs, and get work done easily.</p>
+        <h2>Welcome to <span style="color:#ff5722">Fixit</span></h2>
+        <p id="typed-text"></p>
         <a href="signup.html" class="btn">Get Started</a>
       </div>
     </section>
 
-  <!-- Services Section -->
-<section id="services" class="services">
-  <h3>Services</h3>
-  
-
-    <div class="service-cards">
-    <a href="services/plumbing.html" class="service-card plumbing">
-      <div class="overlay">
-        <h4>Plumbing</h4>
-        <p>Fix leaks, pipes, and plumbing emergencies quickly and professionally.</p>
-      </div>
-    </a>
-
-    <a href="services/electrical.html" class="service-card electrical">
-      <div class="overlay">
-        <h4>Electrical</h4>
-        <p>Certified electricians for wiring, repairs, and installations.</p>
-      </div>
-    </a>
-
-    <a href="services/cleaning.html" class="service-card cleaning">
-      <div class="overlay">
-        <h4>Cleaning</h4>
-        <p>Professional home and office cleaning services for sparkling results.</p>
-      </div>
-    </a>
-
-    <a href="services/painting.html" class="service-card painting">
-      <div class="overlay">
-        <h4>Painting</h4>
-        <p>Skilled painters to refresh your home or office walls efficiently.</p>
-      </div>
-    </a>
-
-    <a href="services/carpentry.html" class="service-card carpentry">
-      <div class="overlay">
-        <h4>Carpentry</h4>
-        <p>Furniture repair, door/window fixes, and woodwork.</p>
-      </div>
-    </a>
-
-    <a href="services/wellness.html" class="service-card wellness">
-      <div class="overlay">
-        <h4>Wellness</h4>
-        <p>Rejuvenating at-home wellness and body therapy by trained professionals.</p>
-      </div>
-    </a>
-
-    <a href="services/pestcontrol.html" class="service-card pest">
-      <div class="overlay">
-        <h4>Pest Control</h4>
-        <p>Safe & effective treatment for insects and rodents.</p>
-      </div>
-    </a>
-
-    <a href="services/renovation.html" class="service-card renovation">
-      <div class="overlay">
-        <h4>Home Renovation</h4>
-        <p>Remodeling, flooring, tiling & complete makeovers.</p>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-
-    <!-- Enhanced Testimonials Section -->
-    <section class="testimonials">
-      <h3>Customer Feedback</h3>
-      <div class="testimonial-container">
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"Fixit helped me find a plumber instantly! The service was fast and reliable. Highly professional work done within hours."</p>
-          <p class="testimonial-author">– Ramesh K.</p>
-        </div>
-        
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"Easy to post jobs and get them done. The electrician was skilled and completed everything perfectly. Highly recommend!"</p>
-          <p class="testimonial-author">– Priya S.</p>
-        </div>
-        
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"Amazing cleaning service! My home has never looked better. The team was punctual and thorough. Will definitely use again."</p>
-          <p class="testimonial-author">– Anjali M.</p>
-        </div>
+    <!-- Services Section -->
+    <section id="services" class="services reveal">
+      <h3>Services</h3>
+      <div class="service-cards">
+        <a href="services/plumbing.html" class="service-card plumbing">
+          <div class="overlay">
+            <h4>Plumbing</h4>
+            <p>Fix leaks, pipes, and plumbing emergencies quickly and professionally.</p>
+          </div>
+        </a>
+        <a href="services/electrical.html" class="service-card electrical">
+          <div class="overlay">
+            <h4>Electrical</h4>
+            <p>Certified electricians for wiring, repairs, and installations.</p>
+          </div>
+        </a>
+        <a href="services/cleaning.html" class="service-card cleaning">
+          <div class="overlay">
+            <h4>Cleaning</h4>
+            <p>Professional home and office cleaning services for sparkling results.</p>
+          </div>
+        </a>
+        <a href="services/painting.html" class="service-card painting">
+          <div class="overlay">
+            <h4>Painting</h4>
+            <p>Skilled painters to refresh your home or office walls efficiently.</p>
+          </div>
+        </a>
+        <a href="services/carpentry.html" class="service-card carpentry">
+          <div class="overlay">
+            <h4>Carpentry</h4>
+            <p>Furniture repair, door/window fixes, and woodwork.</p>
+          </div>
+        </a>
+        <a href="services/wellness.html" class="service-card wellness">
+          <div class="overlay">
+            <h4>Wellness</h4>
+            <p>Rejuvenating at-home wellness and body therapy by trained professionals.</p>
+          </div>
+        </a>
+        <a href="services/pestcontrol.html" class="service-card pest">
+          <div class="overlay">
+            <h4>Pest Control</h4>
+            <p>Safe & effective treatment for insects and rodents.</p>
+          </div>
+        </a>
+        <a href="services/renovation.html" class="service-card renovation">
+          <div class="overlay">
+            <h4>Home Renovation</h4>
+            <p>Remodeling, flooring, tiling & complete makeovers.</p>
+          </div>
+        </a>
       </div>
     </section>
 
-    <!-- Enhanced Call to Action Section -->
-    <section class="cta">
+    <!-- About Us Teaser Section -->
+    <section class="about-teaser reveal">
+      <span class="about-teaser-label">Who We Are</span>
+      <button class="about-btn" onclick="openAboutPanel()">
+        About Us
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </button>
+    </section>
+
+    <!-- About Us Slide Panel -->
+    <div class="about-panel-overlay" id="aboutOverlay" onclick="closeAboutPanel()"></div>
+    <div class="about-panel" id="aboutPanel">
+      <button class="about-panel-close" onclick="closeAboutPanel()">✕</button>
+      <h2>Fixit</h2>
+      <p class="panel-tagline">Your Trusted Service Partner</p>
+      <p>We started Fixit with one simple goal — make home services easy, fast, and reliable for everyone. No more waiting, no more guessing. Just trusted professionals at your door.</p>
+      <div class="about-panel-divider"></div>
+      <p>Our network of verified experts covers everything from plumbing and electrical work to cleaning, painting, and beyond — all available 24/7 across Delhi.</p>
+      <ul class="about-panel-values">
+        <li>Verified & background-checked professionals</li>
+        <li>Transparent pricing, no hidden charges</li>
+        <li>24/7 availability for emergencies</li>
+        <li>Rated by real customers like you</li>
+      </ul>
+      <a href="about.html" class="about-panel-cta">Read Full Story →</a>
+
+      <!-- Count-up Stats -->
+      <div class="about-panel-divider"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px;">
+        <div style="text-align:center;background:rgba(255,87,34,0.08);border:1px solid rgba(255,87,34,0.2);border-radius:12px;padding:18px 10px;">
+          <div style="font-size:1.7rem;font-weight:800;color:#ff5722;" class="count-up" data-target="10000">0</div>
+          <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-top:4px;">Happy Customers</div>
+        </div>
+        <div style="text-align:center;background:rgba(255,87,34,0.08);border:1px solid rgba(255,87,34,0.2);border-radius:12px;padding:18px 10px;">
+          <div style="font-size:1.7rem;font-weight:800;color:#ff5722;" class="count-up" data-target="500">0</div>
+          <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-top:4px;">Verified Pros</div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials reveal">
+      <span class="testimonials-label">What People Say</span>
+      <h3>Trusted by <span>Thousands</span></h3>
+      <div class="testimonial-container">
+
+        <div class="testimonial-card">
+          <span class="testimonial-stars">★★★★★</span>
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">Fixit helped me find a plumber instantly! The service was fast and reliable. Highly professional work done within hours.</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar">R</div>
+            <div>
+              <div class="testimonial-author">Ramesh K.</div>
+              <div class="testimonial-role">Delhi, India</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card featured">
+          <span class="testimonial-stars">★★★★★</span>
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">Easy to post jobs and get them done. The electrician was skilled and completed everything perfectly. Highly recommend!</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar">P</div>
+            <div>
+              <div class="testimonial-author">Priya S.</div>
+              <div class="testimonial-role">Noida, India</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="testimonial-stars">★★★★★</span>
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">Amazing cleaning service! My home has never looked better. The team was punctual and thorough. Will definitely use again.</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar">A</div>
+            <div>
+              <div class="testimonial-author">Anjali M.</div>
+              <div class="testimonial-role">Gurgaon, India</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta reveal">
       <div class="cta-content">
         <h3>Ready to Get Started?</h3>
         <p>Join thousands of satisfied customers. Connect with trusted professionals for all your home service needs today!</p>
         <a href="signup.html" class="btn">Sign Up Now</a>
       </div>
     </section>
-
   </main>
 
-  <!-- Enhanced Footer -->
+  <!-- Footer -->
   <footer class="footer-enhanced">
     <div class="footer-container">
-      
-      <!-- Footer Top Section -->
       <div class="footer-top">
-        
+
         <div class="footer-column">
           <div class="footer-logo">
             <h2>Fixit</h2>
@@ -496,24 +1246,16 @@
           <p class="footer-description">Professional home services available 24/7. Fast, reliable, and quality solutions for all your service needs.</p>
           <div class="social-links">
             <a href="#" class="social-icon" aria-label="Facebook">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-              </svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
             </a>
             <a href="#" class="social-icon" aria-label="Twitter">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-              </svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
             </a>
             <a href="#" class="social-icon" aria-label="Instagram">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
-              </svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg>
             </a>
             <a href="#" class="social-icon" aria-label="LinkedIn">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             </a>
           </div>
         </div>
@@ -544,30 +1286,19 @@
           <h3>Contact Info</h3>
           <ul class="footer-contact">
             <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
               <span>Delhi, India</span>
             </li>
             <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-              </svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
               <span>+91 1800-FIXIT-NOW</span>
             </li>
             <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
               <span>support@fixit.com</span>
             </li>
             <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
               <span>24/7 Available</span>
             </li>
           </ul>
@@ -575,8 +1306,6 @@
 
       </div>
 
-      <!-- Footer Bottom Section -->
-       
       <div class="footer-bottom">
         <p>© 2025 Fixit. All rights reserved.</p>
         <div class="footer-bottom-links">
@@ -587,16 +1316,157 @@
           <a href="#">Cookie Policy</a>
         </div>
       </div>
-
     </div>
   </footer>
 
+  <p id="backend-status"></p>
+  <script src="js/script.js"></script>
 
-  <!-- This line shows backend message -->
-    <p id="backend-status"></p>
+  <!-- About Panel Script -->
+  <script>
+    /* ---- Page Loader ---- */
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('page-loader').classList.add('hide');
+      }, 1300);
+    });
 
-    <!-- This connects frontend to backend -->
-    <script src="js/script.js"></script>
+    /* ---- Typed Text ---- */
+    const phrases = [
+      'Find services, post jobs, get work done easily.',
+      'Trusted professionals at your doorstep.',
+      'Fast. Reliable. Available 24/7.',
+      'Your home deserves the best care.'
+    ];
+    let pi = 0, ci = 0, deleting = false;
+    const el = document.getElementById('typed-text');
+    if (el) {
+      el.innerHTML = '<span class="typed-cursor"></span>';
+      function type() {
+        const word = phrases[pi];
+        if (!deleting) {
+          ci++;
+          el.innerHTML = word.slice(0, ci) + '<span class="typed-cursor"></span>';
+          if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+        } else {
+          ci--;
+          el.innerHTML = word.slice(0, ci) + '<span class="typed-cursor"></span>';
+          if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; setTimeout(type, 400); return; }
+        }
+        setTimeout(type, deleting ? 40 : 65);
+      }
+      setTimeout(type, 800);
+    }
 
-    
+    /* ---- Scroll Reveal ---- */
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    /* ---- Count-Up ---- */
+    function countUp(el) {
+      const target = +el.dataset.target;
+      const duration = 1800;
+      const step = target / (duration / 16);
+      let current = 0;
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) { current = target; clearInterval(timer); }
+        el.textContent = target >= 1000
+          ? (current / 1000).toFixed(1).replace(/\.0$/, '') + 'K+'
+          : Math.floor(current) + '+';
+      }, 16);
+    }
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { countUp(e.target); countObserver.unobserve(e.target); } });
+    }, { threshold: 0.5 });
+
+    /* ---- About Panel ---- */
+    function openAboutPanel() {
+      document.getElementById('aboutPanel').classList.add('active');
+      document.getElementById('aboutOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      // trigger count-up when panel opens
+      document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
+    }
+    function closeAboutPanel() {
+      document.getElementById('aboutPanel').classList.remove('active');
+      document.getElementById('aboutOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAboutPanel(); });
+  </script>
+
+  <!-- Premium Upgrades JS -->
+  <script>
+    /* ---- Scroll Progress Bar ---- */
+    window.addEventListener('scroll', () => {
+      const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      document.getElementById('scroll-progress').style.width = scrolled + '%';
+    });
+
+    /* ---- Glass Header on Scroll ---- */
+    window.addEventListener('scroll', () => {
+      document.querySelector('header').classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    /* ---- Cursor Glow Trail ---- */
+    const glow = document.getElementById('cursorGlow');
+    document.addEventListener('mousemove', e => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top  = e.clientY + 'px';
+    });
+
+    /* ---- 3D Card Tilt ---- */
+    document.querySelectorAll('.service-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width  - 0.5;
+        const y = (e.clientY - r.top)  / r.height - 0.5;
+        card.style.transform = `perspective(600px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) scale(1.04)`;
+        card.style.boxShadow = `${-x * 20}px ${-y * 20}px 40px rgba(255,87,34,0.25)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.boxShadow = '';
+      });
+    });
+
+    /* ---- Testimonial Carousel removed - new design ---- */
+  </script>
+
+  <!-- Hamburger Menu Script -->
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('mainNav');
+      const hamburger = document.getElementById('hamburger');
+      const overlay = document.getElementById('navOverlay');
+
+      nav.classList.toggle('open');
+      hamburger.classList.toggle('active');
+      overlay.classList.toggle('active');
+
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+    }
+
+    function closeMenu() {
+      const nav = document.getElementById('mainNav');
+      const hamburger = document.getElementById('hamburger');
+      const overlay = document.getElementById('navOverlay');
+
+      nav.classList.remove('open');
+      hamburger.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+  </script>
+
 </body>
+</html>
