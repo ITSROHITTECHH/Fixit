@@ -13,13 +13,14 @@
 
     body.signup-bg {
       background: url("assets/bg.png") no-repeat center center / cover;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      overflow: hidden;
+      overflow-x: hidden;
+      padding: 20px;
     }
 
     /* Dark overlay with animation */
@@ -85,6 +86,8 @@
     .login-container {
       position: relative;
       z-index: 1;
+      width: 100%;
+      max-width: 420px;
       animation: slideIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
 
@@ -107,7 +110,7 @@
       box-shadow: 
         0 20px 60px rgba(0, 0, 0, 0.5),
         0 0 0 1px rgba(255, 255, 255, 0.3);
-      width: 380px;
+      width: 100%;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -153,14 +156,8 @@
     }
 
     @keyframes fadeInDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes expandWidth {
@@ -286,23 +283,46 @@
       color: #e64a19;
     }
 
-    /* Ripple effect on button click */
-    @keyframes ripple {
-      0% {
-        transform: scale(0);
-        opacity: 1;
+    /* ===================== */
+    /* MOBILE RESPONSIVE     */
+    /* ===================== */
+    @media (max-width: 480px) {
+      body.signup-bg {
+        padding: 16px;
+        align-items: center;
       }
-      100% {
-        transform: scale(4);
-        opacity: 0;
+
+      .form-card {
+        padding: 30px 22px;
+        border-radius: 16px;
+      }
+
+      .form-card h2 {
+        font-size: 26px;
+      }
+
+      .input-group input {
+        font-size: 16px; /* prevents iOS zoom on focus */
+        padding: 13px 14px;
+      }
+
+      button[type="submit"] {
+        font-size: 15px;
+        padding: 13px;
+      }
+
+      .shape {
+        display: none; /* hide floating shapes on small screens for cleaner look */
       }
     }
 
-    /* Mobile responsive */
-    @media (max-width: 480px) {
+    @media (max-width: 360px) {
       .form-card {
-        width: 90%;
-        padding: 30px 25px;
+        padding: 24px 16px;
+      }
+
+      .form-card h2 {
+        font-size: 22px;
       }
     }
   </style>
@@ -317,25 +337,22 @@
       <h2>Signup</h2>
       
       <form id="signupForm">
-  <div class="input-group">
-    <input type="text" name="username" placeholder="Username" required>
-  </div>
-  <div class="input-group">
-    <input type="email" name="email" placeholder="Email" required>
-  </div>
-  <div class="input-group">
-    <input type="password" name="password" placeholder="Password" required>
-  </div>
-  <button type="submit">Signup</button>
-</form>
-
-
+        <div class="input-group">
+          <input type="text" name="username" placeholder="Username" required>
+        </div>
+        <div class="input-group">
+          <input type="email" name="email" placeholder="Email" required>
+        </div>
+        <div class="input-group">
+          <input type="password" name="password" placeholder="Password" required>
+        </div>
+        <button type="submit">Signup</button>
+      </form>
 
       <p>Already have an account? <a href="login.html">Login</a></p>
     </div>
   </div>
   
   <script src="js/script.js"></script>
-
 </body>
 </html>
