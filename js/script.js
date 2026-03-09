@@ -27,7 +27,35 @@ fetch("https://fixit-r6j0.onrender.com/api/test/")
 
 
 
-  const signupForm = document.getElementById("signupForm");
+//   const signupForm = document.getElementById("signupForm");
+
+// if (signupForm) {
+//   signupForm.addEventListener("submit", function (e) {
+//     e.preventDefault();
+
+//     const formData = new FormData(signupForm);
+
+//     fetch("https://fixit-r6j0.onrender.com/api/signup/", {
+//       method: "POST",
+//       body: formData,
+//     })
+//       .then(res => res.json())
+//       .then(data => {
+//         if (data.message) {
+//           alert("Signup successful 🎉");
+//           window.location.href = "login.html";
+//         } else {
+//           alert(data.error);
+//         }
+//       })
+//       .catch(err => {
+//         console.error(err);
+//         alert("Something went wrong");
+//       });
+//   });
+// }
+
+const signupForm = document.getElementById("signupForm");
 
 if (signupForm) {
   signupForm.addEventListener("submit", function (e) {
@@ -39,23 +67,37 @@ if (signupForm) {
       method: "POST",
       body: formData,
     })
-      .then(res => res.json())
-      .then(data => {
+      .then(async (res) => {
+        let data;
+
+        try {
+          data = await res.json();
+        } catch {
+          throw new Error("Backend did not return JSON");
+        }
+
+        if (!res.ok) {
+          throw new Error(data.error || "Signup failed");
+        }
+
+        return data;
+      })
+      .then((data) => {
+        console.log("Signup response:", data);
+
         if (data.message) {
           alert("Signup successful 🎉");
           window.location.href = "login.html";
         } else {
-          alert(data.error);
+          alert(data.error || "Signup failed");
         }
       })
-      .catch(err => {
-        console.error(err);
-        alert("Something went wrong");
+      .catch((err) => {
+        console.error("Signup error:", err);
+        alert(err.message || "Server error. Please try again.");
       });
   });
 }
-
-
 
 
 
