@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fixit – Terms of Service</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #scroll-progress{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#ff5722,#ff8a65,#ff5722);background-size:200% 100%;z-index:9998;transition:width 0.1s linear;animation:shimmer 2s linear infinite}
+    @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+    header{transition:background 0.4s ease,box-shadow 0.4s ease,backdrop-filter 0.4s ease!important}
+    header.scrolled{background:rgba(17,17,17,0.85)!important;backdrop-filter:blur(16px)!important;-webkit-backdrop-filter:blur(16px)!important;box-shadow:0 2px 24px rgba(0,0,0,0.4)!important}
+    .cursor-glow{position:fixed;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,87,34,0.12) 0%,transparent 70%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:left 0.12s ease,top 0.12s ease}
+    html{scroll-behavior:smooth}
+    #page-loader{position:fixed;inset:0;background:#111;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity 0.6s ease,visibility 0.6s ease}
+    #page-loader.hide{opacity:0;visibility:hidden}
+    .loader-logo{font-size:2.8rem;font-weight:900;color:#ff5722;letter-spacing:2px}
+    .loader-bar-wrap{width:160px;height:3px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden}
+    .loader-bar{height:100%;width:0%;background:linear-gradient(90deg,#ff5722,#ff8a65);border-radius:3px;animation:loadBar 1.2s ease forwards}
+    @keyframes loadBar{to{width:100%}}
+    .loader-text{font-size:0.75rem;color:rgba(255,255,255,0.35);letter-spacing:3px;text-transform:uppercase}
+    .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .float-btn{position:fixed;bottom:30px;right:30px;z-index:1500;background:linear-gradient(135deg,#ff5722,#e64a19);color:white;text-decoration:none;padding:14px 24px;border-radius:50px;font-weight:700;font-size:0.95rem;box-shadow:0 8px 28px rgba(255,87,34,0.5);display:flex;align-items:center;gap:8px;transition:all 0.3s ease;animation:floatPulse 2.5s ease-in-out infinite}
+    .float-btn:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 14px 36px rgba(255,87,34,0.7);animation-play-state:paused}
+    @keyframes floatPulse{0%,100%{box-shadow:0 8px 28px rgba(255,87,34,0.5)}50%{box-shadow:0 8px 40px rgba(255,87,34,0.85)}}
+    @media(max-width:768px){.float-btn span.label{display:none}.float-btn{width:54px;height:54px;padding:0;justify-content:center;border-radius:50%;bottom:20px;right:20px}}
+    .hamburger{display:none;flex-direction:column;justify-content:space-between;width:42px;height:42px;cursor:pointer;background:#ff5722;border:none;border-radius:8px;padding:10px 9px;z-index:1001;box-shadow:0 2px 8px rgba(255,87,34,0.5)}
+    .hamburger span{display:block;width:100%;height:3px;background:#fff;border-radius:3px;transition:all 0.3s ease}
+    .hamburger.active span:nth-child(1){transform:translateY(9.5px) rotate(45deg)}
+    .hamburger.active span:nth-child(2){opacity:0;transform:scaleX(0)}
+    .hamburger.active span:nth-child(3){transform:translateY(-9.5px) rotate(-45deg)}
+    .nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:999}
+    .nav-overlay.active{display:block}
+    @media(max-width:768px){
+      header{display:flex!important;flex-direction:row!important;justify-content:space-between!important;align-items:center!important;padding:15px 20px!important;position:relative;z-index:1000}
+      .hamburger{display:flex}
+      header nav{display:flex!important;flex-direction:column!important;position:fixed!important;top:0;right:-100%;width:260px;height:100vh;background:#111;padding:80px 30px 30px;gap:10px!important;z-index:1000;transition:right 0.35s ease;box-shadow:-5px 0 20px rgba(0,0,0,0.4)}
+      header nav.open{right:0}
+      header nav a{display:block!important;padding:12px 15px!important;color:#fff;font-size:1.1rem;border-bottom:1px solid rgba(255,255,255,0.1);text-decoration:none;transition:color 0.2s ease,padding-left 0.2s ease}
+      header nav a:hover{color:#ff5722;padding-left:22px!important}
+      .policy-wrap{grid-template-columns:1fr!important}
+      .policy-toc{position:static!important}
+      .footer-top{grid-template-columns:1fr!important;gap:30px!important}
+      .footer-bottom{flex-direction:column!important;text-align:center!important;padding:20px 15px!important}
+    }
+
+    body{background:#111;color:rgba(255,255,255,0.85);font-family:'Segoe UI',sans-serif}
+
+    .policy-hero{background:#111;padding:100px 20px 80px;text-align:center;position:relative;overflow:hidden}
+    .policy-hero::before{content:'';position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(circle,rgba(255,87,34,0.09) 0%,transparent 70%);pointer-events:none}
+    .policy-hero .badge{display:inline-block;background:rgba(255,87,34,0.1);border:1px solid rgba(255,87,34,0.28);color:#ff5722;font-size:0.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 18px;border-radius:50px;margin-bottom:22px}
+    .policy-hero h1{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-1px;margin-bottom:18px}
+    .policy-hero h1 span{color:#ff5722}
+    .policy-hero p{color:rgba(255,255,255,0.45);font-size:1.05rem;max-width:520px;margin:0 auto 26px;line-height:1.75}
+    .policy-hero .meta{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:8px 20px;border-radius:50px;font-size:0.82rem;color:rgba(255,255,255,0.38)}
+    .policy-hero .meta svg{color:#ff5722}
+
+    .policy-wrap{max-width:1000px;margin:0 auto;padding:70px 20px 90px;display:grid;grid-template-columns:210px 1fr;gap:55px;align-items:start}
+    .policy-toc{position:sticky;top:90px}
+    .policy-toc h4{font-size:0.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#ff5722;margin-bottom:18px}
+    .policy-toc ol{list-style:none;padding:0;margin:0;counter-reset:toc}
+    .policy-toc li{counter-increment:toc;margin-bottom:3px}
+    .policy-toc li a{display:flex;align-items:center;gap:9px;color:rgba(255,255,255,0.32);text-decoration:none;font-size:0.83rem;padding:7px 10px;border-radius:6px;transition:all 0.2s ease}
+    .policy-toc li a::before{content:counter(toc,decimal-leading-zero);font-size:0.68rem;color:rgba(255,87,34,0.5);font-weight:700;flex-shrink:0}
+    .policy-toc li a:hover{color:#ff5722;background:rgba(255,87,34,0.07);padding-left:14px}
+
+    .policy-section{margin-bottom:52px;scroll-margin-top:95px}
+    .policy-section h2{font-size:1.22rem;font-weight:800;color:#fff;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:12px}
+    .snum{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:rgba(255,87,34,0.14);color:#ff5722;font-size:0.74rem;font-weight:800;flex-shrink:0}
+    .policy-section p{color:rgba(255,255,255,0.55);margin-bottom:12px;line-height:1.82;font-size:0.96rem}
+    .policy-section ul{list-style:none;padding:0;margin:0 0 14px}
+    .policy-section li{font-size:0.94rem;line-height:1.75;margin-bottom:8px;padding:11px 15px 11px 42px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.05);border-radius:8px;position:relative;color:rgba(255,255,255,0.6)}
+    .policy-section li::before{content:'→';position:absolute;left:15px;color:#ff5722;font-size:0.85rem}
+    .policy-section strong{color:#fff}
+    .policy-section a{color:#ff5722;text-decoration:none}
+
+    .hbox{background:rgba(255,87,34,0.07);border:1px solid rgba(255,87,34,0.18);border-left:3px solid #ff5722;border-radius:10px;padding:16px 20px;margin:0 0 18px;font-size:0.93rem;color:rgba(255,255,255,0.58);line-height:1.75}
+    .hbox strong{color:#ff8a65}
+
+    /* cancellation table */
+    .cancel-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+    .cancel-card{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:16px 18px}
+    .cancel-card h4{font-size:0.85rem;font-weight:700;color:#ff5722;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px}
+    .cancel-card p{color:rgba(255,255,255,0.5);font-size:0.88rem;margin:0;line-height:1.6}
+    @media(max-width:520px){.cancel-grid{grid-template-columns:1fr}}
+
+    .footer-enhanced{background:#111;color:white;padding:0;margin-top:0;clear:both}
+    .footer-container{max-width:1200px;margin:0 auto;padding:60px 20px 0}
+    .footer-top{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px;padding-bottom:40px;text-align:left}
+    .footer-column h2,.footer-column h3{color:#ff5722;margin-bottom:20px;font-weight:700}
+    .footer-column h2{font-size:2rem}.footer-column h3{font-size:1.2rem}
+    .footer-tagline{color:rgba(255,255,255,0.7);font-size:0.9rem;margin-top:-10px;margin-bottom:15px}
+    .footer-description{color:rgba(255,255,255,0.8);line-height:1.6;margin-bottom:20px;font-size:0.95rem}
+    .social-links{display:flex;gap:12px;flex-wrap:wrap}
+    .social-icon{width:40px;height:40px;background:rgba(255,107,53,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#e64a19;transition:all 0.3s ease}
+    .social-icon:hover{background:#ff5722;color:white;transform:translateY(-3px)}
+    .footer-links,.footer-contact{list-style:none;padding:0;margin:0}
+    .footer-links li{margin-bottom:12px}
+    .footer-links a{color:rgba(255,255,255,0.8);text-decoration:none;transition:color 0.3s ease;font-size:0.95rem}
+    .footer-links a:hover{color:#ff5722}
+    .footer-contact li{display:flex;align-items:center;gap:12px;margin-bottom:15px;color:rgba(255,255,255,0.8);font-size:0.95rem}
+    .footer-contact svg{color:#ff5722;flex-shrink:0}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding:25px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+    .footer-bottom p{margin:0;color:rgba(255,255,255,0.6);font-size:0.9rem}
+    .footer-bottom-links{display:flex;gap:15px;align-items:center}
+    .footer-bottom-links a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.9rem;transition:color 0.3s ease}
+    .footer-bottom-links a:hover,.footer-bottom-links a.active{color:#ff5722}
+    .footer-bottom-links .separator{color:rgba(255,255,255,0.3)}
+  </style>
+</head>
+<body class="abstract-bg">
+
+  <div id="scroll-progress"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div id="page-loader">
+    <div class="loader-logo">Fixit</div>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+    <div class="loader-text">Terms of Service</div>
+  </div>
+  <a href="signup.html" class="float-btn" title="Book Now">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+    <span class="label">Book Now</span>
+  </a>
+  <div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>
+
+  <header>
+    <h1 class="logo">Fixit</h1>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="mainNav">
+      <a href="index.html" onclick="closeMenu()">Home</a>
+      <a href="services/service.html" onclick="closeMenu()">Services</a>
+      <a href="dashboard.html" onclick="closeMenu()">Dashboard</a>
+      <a href="about.html" onclick="closeMenu()">About Us</a>
+      <a href="contact.html" onclick="closeMenu()">Contact</a>
+      <a href="signup.html" onclick="closeMenu()">Signup</a>
+    </nav>
+  </header>
+
+  <section class="policy-hero reveal">
+    <div class="badge">Legal</div>
+    <h1>Terms of <span>Service</span></h1>
+    <p>Please read these terms carefully before using Fixit. They govern your access to and use of our platform and services.</p>
+    <div class="meta">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Last updated: January 1, 2025
+    </div>
+  </section>
+
+  <div class="policy-wrap">
+    <aside class="policy-toc reveal">
+      <h4>Contents</h4>
+      <ol>
+        <li><a href="#t1">Acceptance of Terms</a></li>
+        <li><a href="#t2">Services Description</a></li>
+        <li><a href="#t3">User Accounts</a></li>
+        <li><a href="#t4">Booking & Payments</a></li>
+        <li><a href="#t5">Cancellation Policy</a></li>
+        <li><a href="#t6">User Conduct</a></li>
+        <li><a href="#t7">Professional Terms</a></li>
+        <li><a href="#t8">Limitation of Liability</a></li>
+        <li><a href="#t9">Intellectual Property</a></li>
+        <li><a href="#t10">Dispute Resolution</a></li>
+        <li><a href="#t11">Termination</a></li>
+        <li><a href="#t12">Governing Law</a></li>
+        <li><a href="#t13">Contact</a></li>
+      </ol>
+    </aside>
+
+    <main class="policy-content">
+      <div class="hbox reveal"><strong>Important:</strong> By accessing or using Fixit's website, mobile application, or services, you agree to be bound by these Terms of Service. If you do not agree, please do not use our services.</div>
+
+      <div class="policy-section reveal" id="t1">
+        <h2><span class="snum">1</span> Acceptance of Terms</h2>
+        <p>These Terms of Service constitute a legally binding agreement between you and Fixit. By creating an account, making a booking, or otherwise using our services, you confirm that you are at least 18 years old and accept these Terms in full. We reserve the right to update these Terms at any time — continued use constitutes acceptance.</p>
+      </div>
+
+      <div class="policy-section reveal" id="t2">
+        <h2><span class="snum">2</span> Services Description</h2>
+        <p>Fixit is an online platform that connects customers with verified, independent home service professionals. Our services include:</p>
+        <ul>
+          <li>Plumbing — leak repairs, pipe installation, drain cleaning, emergency service</li>
+          <li>Electrical — wiring, repairs, installations, certified electricians</li>
+          <li>Cleaning — home and office deep cleaning services</li>
+          <li>Painting — interior and exterior painting by skilled professionals</li>
+          <li>Carpentry — furniture repair, door/window fixes, and woodwork</li>
+          <li>Pest Control — safe and effective treatment for insects and rodents</li>
+          <li>Home Renovation — remodeling, flooring, tiling, and complete makeovers</li>
+        </ul>
+        <p>Fixit acts as a <strong>marketplace platform</strong>. Service professionals are independent contractors, not employees of Fixit.</p>
+      </div>
+
+      <div class="policy-section reveal" id="t3">
+        <h2><span class="snum">3</span> User Accounts</h2>
+        <p>To book services, you must create an account. You agree to:</p>
+        <ul>
+          <li>Provide accurate, current, and complete information during registration</li>
+          <li>Keep your account credentials confidential and not share them</li>
+          <li>Notify us immediately of any unauthorized use of your account</li>
+          <li>Take responsibility for all activity that occurs under your account</li>
+          <li>Not create multiple accounts or impersonate any person or entity</li>
+        </ul>
+      </div>
+
+      <div class="policy-section reveal" id="t4">
+        <h2><span class="snum">4</span> Booking & Payments</h2>
+        <p>When you book a service through Fixit:</p>
+        <ul>
+          <li>You will receive a booking confirmation with estimated pricing</li>
+          <li>Final pricing may vary based on actual work performed and materials required</li>
+          <li>Payment is due upon completion of the service unless otherwise agreed</li>
+          <li>We accept major credit/debit cards and UPI payments</li>
+          <li>All prices are inclusive of applicable taxes</li>
+        </ul>
+        <div class="hbox"><strong>Price Estimates:</strong> Quotes provided before service are estimates only. The final invoice reflects actual labour and materials used. You will be notified of any significant cost changes before work proceeds.</div>
+      </div>
+
+      <div class="policy-section reveal" id="t5">
+        <h2><span class="snum">5</span> Cancellation & Refund Policy</h2>
+        <p>We understand plans change. Our cancellation policy:</p>
+        <div class="cancel-grid">
+          <div class="cancel-card">
+            <h4>✓ Free Cancellation</h4>
+            <p>Cancel up to 2 hours before the scheduled appointment at no charge.</p>
+          </div>
+          <div class="cancel-card">
+            <h4>⚠ Late Cancellation</h4>
+            <p>Cancellations within 2 hours of appointment may incur a ₹200 fee.</p>
+          </div>
+          <div class="cancel-card">
+            <h4>✗ No-Show</h4>
+            <p>If a professional arrives and customer is unavailable, a ₹300 visit charge applies.</p>
+          </div>
+          <div class="cancel-card">
+            <h4>↩ Refunds</h4>
+            <p>Contact us within 48 hours if unsatisfied. We may offer a redo or partial/full refund.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="policy-section reveal" id="t6">
+        <h2><span class="snum">6</span> User Conduct</h2>
+        <p>You agree not to use Fixit's platform to:</p>
+        <ul>
+          <li>Submit false, misleading, or fraudulent booking requests</li>
+          <li>Harass, threaten, or discriminate against service professionals</li>
+          <li>Attempt to book professionals off-platform to bypass fees</li>
+          <li>Post fake or malicious reviews</li>
+          <li>Use automated scripts or bots to interact with our platform</li>
+          <li>Engage in any activity that disrupts or interferes with our services</li>
+        </ul>
+      </div>
+
+      <div class="policy-section reveal" id="t7">
+        <h2><span class="snum">7</span> Service Professional Terms</h2>
+        <p>Plumbing and home service professionals listed on Fixit agree to:</p>
+        <ul>
+          <li>Maintain valid licenses, certifications, and insurance as required by law</li>
+          <li>Provide services in a safe, professional, and workmanlike manner</li>
+          <li>Arrive on time or notify customers of delays promptly</li>
+          <li>Not solicit customers for off-platform bookings</li>
+          <li>Comply with all Fixit quality and safety standards</li>
+        </ul>
+      </div>
+
+      <div class="policy-section reveal" id="t8">
+        <h2><span class="snum">8</span> Limitation of Liability</h2>
+        <p>To the fullest extent permitted by law:</p>
+        <ul>
+          <li>Fixit's total liability to you shall not exceed the amount you paid for the specific service in dispute</li>
+          <li>We are not liable for any indirect, incidental, consequential, or punitive damages</li>
+          <li>We do not guarantee the quality of work performed by independent professionals</li>
+          <li>We are not responsible for property damage caused by service professionals (though we will assist in dispute resolution)</li>
+        </ul>
+      </div>
+
+      <div class="policy-section reveal" id="t9">
+        <h2><span class="snum">9</span> Intellectual Property</h2>
+        <p>All content on the Fixit platform — including the logo, design, text, graphics, software, and data — is the exclusive property of Fixit or its licensors and is protected by applicable intellectual property laws. You may not copy, reproduce, or create derivative works from our content without explicit written permission.</p>
+      </div>
+
+      <div class="policy-section reveal" id="t10">
+        <h2><span class="snum">10</span> Dispute Resolution</h2>
+        <p>In the event of a dispute between a customer and a service professional:</p>
+        <ul>
+          <li>Contact our support team at <strong>support@fixit.com</strong> within 48 hours of service completion</li>
+          <li>Provide photos, descriptions, and any relevant documentation</li>
+          <li>Fixit will review and respond within 5 business days</li>
+          <li>We will mediate in good faith but our decisions are not legally binding arbitration</li>
+        </ul>
+      </div>
+
+      <div class="policy-section reveal" id="t11">
+        <h2><span class="snum">11</span> Termination</h2>
+        <p>Fixit reserves the right to suspend or permanently terminate your access, with or without notice, for violation of these Terms, fraudulent or abusive behaviour, actions that harm other users or Fixit's reputation, or non-payment of outstanding dues. You may close your account at any time by contacting support@fixit.com — outstanding bookings must be settled first.</p>
+      </div>
+
+      <div class="policy-section reveal" id="t12">
+        <h2><span class="snum">12</span> Governing Law</h2>
+        <p>These Terms shall be governed by and construed in accordance with the laws of India. Any legal proceedings arising from these Terms shall be subject to the exclusive jurisdiction of the courts in New Delhi, India.</p>
+      </div>
+
+      <div class="policy-section reveal" id="t13">
+        <h2><span class="snum">13</span> Contact Us</h2>
+        <p>For questions about these Terms of Service, please contact:</p>
+        <ul>
+          <li><strong>Email:</strong> support@fixit.com</li>
+          <li><strong>Phone:</strong> +91 1800-FIXIT-NOW</li>
+          <li><strong>Address:</strong> Delhi, India</li>
+        </ul>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer-enhanced">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-column">
+          <h2>Fixit</h2>
+          <p class="footer-tagline">Your trusted service partner</p>
+          <p class="footer-description">Professional home services available 24/7. Fast, reliable, and quality solutions for all your service needs.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="#" class="social-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg></a>
+            <a href="#" class="social-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg></a>
+            <a href="#" class="social-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services/service.html">Services</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="signup.html">Book Now</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Our Services</h3>
+          <ul class="footer-links">
+            <li><a href="services/plumbing.html">Plumbing</a></li>
+            <li><a href="services/electrical.html">Electrical</a></li>
+            <li><a href="services/cleaning.html">Cleaning</a></li>
+            <li><a href="services/painting.html">Painting</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Contact Info</h3>
+          <ul class="footer-contact">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Delhi, India</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+91 1800-FIXIT-NOW</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>support@fixit.com</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>24/7 Available</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Fixit. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <span class="separator">|</span>
+          <a href="terms.html" class="active">Terms of Service</a>
+          <span class="separator">|</span>
+          <a href="cookie-policy.html">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('page-loader').classList.add('hide');},1300);});
+    window.addEventListener('scroll',()=>{const s=(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100;document.getElementById('scroll-progress').style.width=s+'%';document.querySelector('header').classList.toggle('scrolled',window.scrollY>60);});
+    const glow=document.getElementById('cursorGlow');
+    document.addEventListener('mousemove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px';});
+    const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);}});},{threshold:0.1});
+    document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+    function toggleMenu(){const n=document.getElementById('mainNav'),h=document.getElementById('hamburger'),o=document.getElementById('navOverlay');n.classList.toggle('open');h.classList.toggle('active');o.classList.toggle('active');document.body.style.overflow=n.classList.contains('open')?'hidden':'';}
+    function closeMenu(){document.getElementById('mainNav').classList.remove('open');document.getElementById('hamburger').classList.remove('active');document.getElementById('navOverlay').classList.remove('active');document.body.style.overflow='';}
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
+  </script>
+</body>
+</html>

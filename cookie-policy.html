@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fixit – Cookie Policy</title>
+<link rel="stylesheet" href="style.css">
+
+<!-- SAME STYLE FROM TERMS PAGE -->
+<style>
+/* keep exactly same styles */
+#scroll-progress{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#ff5722,#ff8a65,#ff5722);background-size:200% 100%;z-index:9998;transition:width 0.1s linear;animation:shimmer 2s linear infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+header{transition:background 0.4s ease,box-shadow 0.4s ease,backdrop-filter 0.4s ease!important}
+header.scrolled{background:rgba(17,17,17,0.85)!important;backdrop-filter:blur(16px)!important;box-shadow:0 2px 24px rgba(0,0,0,0.4)!important}
+
+.cursor-glow{position:fixed;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,87,34,0.12) 0%,transparent 70%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:left 0.12s ease,top 0.12s ease}
+
+body{background:#111;color:rgba(255,255,255,0.85);font-family:'Segoe UI',sans-serif}
+
+/* HERO */
+.policy-hero{background:#111;padding:100px 20px 80px;text-align:center;position:relative;overflow:hidden}
+.policy-hero::before{content:'';position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(circle,rgba(255,87,34,0.09) 0%,transparent 70%)}
+
+.policy-hero h1{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:900;color:#fff}
+.policy-hero h1 span{color:#ff5722}
+
+.policy-hero p{color:rgba(255,255,255,0.45);max-width:520px;margin:auto}
+
+.policy-wrap{max-width:1000px;margin:auto;padding:70px 20px 90px;display:grid;grid-template-columns:210px 1fr;gap:55px}
+
+.policy-toc h4{color:#ff5722}
+.policy-toc ol{list-style:none;padding:0}
+
+.policy-section{margin-bottom:52px}
+
+.policy-section h2{font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:16px}
+
+.policy-section p{color:rgba(255,255,255,0.6);line-height:1.8}
+
+.policy-section ul{list-style:none;padding:0}
+.policy-section li{background:rgba(255,255,255,0.03);padding:12px;border-radius:8px;margin-bottom:8px}
+
+</style>
+</head>
+
+<body>
+
+<div id="scroll-progress"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<header>
+<h1 class="logo">Fixit</h1>
+<nav>
+<a href="index.html">Home</a>
+<a href="services/service.html">Services</a>
+<a href="dashboard.html">Dashboard</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="signup.html">Signup</a>
+</nav>
+</header>
+
+<!-- HERO -->
+<section class="policy-hero">
+<h1>Cookie <span>Policy</span></h1>
+<p>This Cookie Policy explains how Fixit uses cookies and similar technologies to recognize you when you visit our website.</p>
+</section>
+
+<div class="policy-wrap">
+
+<!-- TABLE OF CONTENT -->
+<aside class="policy-toc">
+<h4>Contents</h4>
+<ol>
+<li><a href="#c1">What Are Cookies</a></li>
+<li><a href="#c2">How We Use Cookies</a></li>
+<li><a href="#c3">Types of Cookies</a></li>
+<li><a href="#c4">Managing Cookies</a></li>
+<li><a href="#c5">Third Party Cookies</a></li>
+<li><a href="#c6">Policy Updates</a></li>
+<li><a href="#c7">Contact</a></li>
+</ol>
+</aside>
+
+<main>
+
+<div class="policy-section" id="c1">
+<h2>1. What Are Cookies</h2>
+<p>Cookies are small text files stored on your device when you visit a website. They help websites remember your preferences and improve your browsing experience.</p>
+</div>
+
+<div class="policy-section" id="c2">
+<h2>2. How We Use Cookies</h2>
+<p>Fixit uses cookies to improve our platform and provide better services.</p>
+<ul>
+<li>Remember your login session</li>
+<li>Save user preferences</li>
+<li>Improve website performance</li>
+<li>Analyze traffic and user behavior</li>
+</ul>
+</div>
+
+<div class="policy-section" id="c3">
+<h2>3. Types of Cookies We Use</h2>
+<ul>
+<li><strong>Essential Cookies:</strong> Required for basic functionality.</li>
+<li><strong>Performance Cookies:</strong> Help us understand how users interact with the website.</li>
+<li><strong>Functionality Cookies:</strong> Remember your preferences and settings.</li>
+<li><strong>Analytics Cookies:</strong> Used to measure traffic and performance.</li>
+</ul>
+</div>
+
+<div class="policy-section" id="c4">
+<h2>4. Managing Cookies</h2>
+<p>You can control or disable cookies through your browser settings. However, disabling cookies may affect certain features of the Fixit website.</p>
+</div>
+
+<div class="policy-section" id="c5">
+<h2>5. Third-Party Cookies</h2>
+<p>Some cookies may be set by third-party services such as analytics providers or embedded content providers.</p>
+</div>
+
+<div class="policy-section" id="c6">
+<h2>6. Policy Updates</h2>
+<p>Fixit may update this Cookie Policy from time to time to reflect changes in technology or legal requirements.</p>
+</div>
+
+<div class="policy-section" id="c7">
+<h2>7. Contact Us</h2>
+<p>If you have any questions regarding this Cookie Policy, contact us:</p>
+<ul>
+<li>Email: support@fixit.com</li>
+<li>Location: Delhi, India</li>
+</ul>
+</div>
+
+</main>
+</div>
+
+<script>
+const glow=document.getElementById('cursorGlow')
+document.addEventListener('mousemove',e=>{
+glow.style.left=e.clientX+'px'
+glow.style.top=e.clientY+'px'
+})
+
+window.addEventListener('scroll',()=>{
+const s=(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100
+document.getElementById('scroll-progress').style.width=s+'%'
+})
+</script>
+
+</body>
+</html>
