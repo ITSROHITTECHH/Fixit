@@ -36,7 +36,7 @@ async function loadDashboard() {
     const token = localStorage.getItem("token"); // 🔑 JWT TOKEN
 
     const response = await fetch(
-      "https://fixit-r6j0.onrender.com/api/my-bookings",
+      "https://fixit-r6j0.onrender.com/api/my-bookings/",
       {
         method: "GET",
         headers: {
