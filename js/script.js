@@ -58,46 +58,82 @@ if (signupForm) {
 
 
 
-document.getElementById("loginForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+// document.getElementById("loginForm").addEventListener("submit", function (e) {
+//   e.preventDefault();
 
-  const email = document.querySelector('input[placeholder="Email"]').value;
-  const password = document.querySelector('input[placeholder="Password"]').value;
+//   const email = document.querySelector('input[placeholder="Email"]').value;
+//   const password = document.querySelector('input[placeholder="Password"]').value;
 
-  fetch("https://fixit-r6j0.onrender.com/api/login/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email, password }),
-  })
-    .then(res => res.json())
-    .then(data => {
-      if (!data.access) {
-        alert(data.error || "Invalid login");
-        return;
-      }
+//   fetch("https://fixit-r6j0.onrender.com/api/login/", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({ email, password }),
+//   })
+//     .then(res => res.json())
+//     .then(data => {
+//       if (!data.access) {
+//         alert(data.error || "Invalid login");
+//         return;
+//       }
 
-      // 🔑 SAVE TOKEN
-      localStorage.setItem("token", data.access);
+//       // 🔑 SAVE TOKEN
+//       localStorage.setItem("token", data.access);
 
-      // 👤 SAVE USER (optional)
-      if (data.user) {
-        localStorage.setItem("user", JSON.stringify(data.user));
-      }
+//       // 👤 SAVE USER (optional)
+//       if (data.user) {
+//         localStorage.setItem("user", JSON.stringify(data.user));
+//       }
 
-      // 🚀 GO TO DASHBOARD
-      window.location.href = "dashboard.html";
+//       // 🚀 GO TO DASHBOARD
+//       window.location.href = "dashboard.html";
+//     })
+//     .catch(err => {
+//       alert("Backend not connected");
+//       console.error(err);
+//     });
+// });
+
+
+
+const loginForm = document.getElementById("loginForm");
+
+if (loginForm) {
+  loginForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const email = document.querySelector('input[placeholder="Email"]').value;
+    const password = document.querySelector('input[placeholder="Password"]').value;
+
+    fetch("https://fixit-r6j0.onrender.com/api/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
     })
-    .catch(err => {
-      alert("Backend not connected");
-      console.error(err);
-    });
-});
+      .then(res => res.json())
+      .then(data => {
+        if (!data.access) {
+          alert(data.error || "Invalid login");
+          return;
+        }
 
+        localStorage.setItem("token", data.access);
 
+        if (data.user) {
+          localStorage.setItem("user", JSON.stringify(data.user));
+        }
 
-
+        window.location.href = "dashboard.html";
+      })
+      .catch(err => {
+        alert("Backend not connected");
+        console.error(err);
+      });
+  });
+}
 
 
 
