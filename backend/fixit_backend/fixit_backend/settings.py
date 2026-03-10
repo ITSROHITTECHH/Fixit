@@ -35,7 +35,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "fixit-r6j0.onrender.com",
     ".onrender.com",
-    "fixitttt.vercel.app",
+    "https://fixit-sable.vercel.app",
     "localhost",
     "127.0.0.1"
 ]
