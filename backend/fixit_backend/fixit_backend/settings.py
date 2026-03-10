@@ -67,7 +67,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
 ]
 
 
@@ -158,11 +157,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS_ALLOW_ALL_ORIGINS = True
 
 
-
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:3000",
-    "http://localhost:3000",
-    "https://fixit-sable.vercel.app/"
+    # "http://127.0.0.1:3000",
+    # "http://localhost:3000",
+    "https://fixit-sable.vercel.app"
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://fixit-sable.vercel.app"
 ]
