@@ -14,9 +14,9 @@ fetch("https://fixit-r6j0.onrender.com/api/test/")
     const statusEl = document.getElementById("backend-status");
     if (statusEl) {
       statusEl.innerText = data.message;
-    } else {
-      console.error("backend-status element not found");
-    }
+    } //  else {
+    //   console.error("backend-status element not found");
+    // }
   })
   .catch(error => {
     console.error("Error connecting backend:", error);
