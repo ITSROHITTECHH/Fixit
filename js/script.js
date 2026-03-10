@@ -5,7 +5,7 @@ console.log("login js loaded");
 
 
 
-fetch("https://fixit-r6j0.onrender.com/api/test/")
+fetch("https://fixit-r6j0.onrender.com/api/test")
   .then(response => response.json())
   .then(data => {
     console.log("Backend response:", data);
@@ -35,7 +35,7 @@ if (signupForm) {
 
     const formData = new FormData(signupForm);
 
-    fetch("https://fixit-r6j0.onrender.com/api/signup/", {
+    fetch("https://fixit-r6j0.onrender.com/api/signup", {
       method: "POST",
       body: formData,
     })
@@ -106,7 +106,7 @@ if (loginForm) {
     const email = document.querySelector('input[placeholder="Email"]').value;
     const password = document.querySelector('input[placeholder="Password"]').value;
 
-    fetch("https://fixit-r6j0.onrender.com/api/login/", {
+    fetch("https://fixit-r6j0.onrender.com/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -164,7 +164,7 @@ if (contactForm) {
     }
 
     try {
-      const res = await fetch("https://fixit-r6j0.onrender.com/api/contact/", {
+      const res = await fetch("https://fixit-r6j0.onrender.com/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

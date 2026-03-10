@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch("https://fixit-r6j0.onrender.com/api/booking/", {
+      const response = await fetch("https://fixit-r6j0.onrender.com/api/booking", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
