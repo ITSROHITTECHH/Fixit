@@ -47,31 +47,35 @@ def test_api(request):
 
 
 
+
+
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+
 @api_view(['POST'])
 def signup(request):
     try:
+        username = request.data.get('username')
         email = request.data.get('email')
         password = request.data.get('password')
 
-        if not email or not password:
+        if not username or not email or not password:
             return Response(
-                {"error": "Email and password are required"},
+                {"error": "All fields are required"},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        if User.objects.filter(username=email).exists():
+        if User.objects.filter(username=username).exists():
             return Response(
-                {"error": "User already exists"},
+                {"error": "Username already exists"},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        user = User.objects.create_user(
-            username=email,
+        User.objects.create_user(
+            username=username,
             email=email,
             password=password
         )
@@ -89,26 +93,33 @@ def signup(request):
         )
 
 
+
+
+
   
 from django.contrib.auth import authenticate
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
 
 @api_view(['POST'])
 def login_api(request):
-    email = request.data.get('email')
-    password = request.data.get('password')
+    username = request.data.get("username")
+    password = request.data.get("password")
 
-    if not email or not password:
-        return Response({"error": "Email and password required"}, status=400)
+    user = authenticate(username=username, password=password)
 
-    user = authenticate(request, username=email, password=password)
-
-    if user is not None:
-        return Response({"success": "Login successful"})
-    else:
+    if user is None:
         return Response({"error": "Invalid credentials"}, status=401)
 
+    refresh = RefreshToken.for_user(user)
+
+    return Response({
+        "access": str(refresh.access_token),
+        "refresh": str(refresh),
+        "user": {
+            "username": user.username,
+            "email": user.email
+        }
+    })
 
 
 
